@@ -1,644 +1,289 @@
 # n8n-nodes-digicryptostore
 
-Custom n8n node for **DigiCryptoStore** - Secure document certification and permanent archiving on Solana blockchain with Arweave/Irys storage.
+**DigiCryptoStore** - Secure document certification and permanent archiving on Solana blockchain with Arweave/Irys storage.
 
-## 🎯 Features
+[![npm version](https://img.shields.io/npm/v/n8n-nodes-digicryptostore)](https://www.npmjs.com/package/n8n-nodes-digicryptostore)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-### **Core Operations**
-- **📤 Upload Documents** - Upload documents for secure permanent storage
-  - ⭐ URL Support - Upload from Google Drive, Dropbox, or any public URL
-  - Base64 encoding - Traditional method with base64 strings
-  - Supports: PDF, DOCX, XLSX, PNG, JPG, and more
-- **💰 Get Pricing** - Retrieve current CHECKHC pricing in real-time
-- **📝 Submit Certification** - Prepare certification with metadata
-  - ✅ All optional fields supported (owner, description, collection, etc.)
-- **🔍 Get Status** - Monitor certification progress
-- **⏳ Wait for Certification** - Poll status until completion (with timeout)
-- **📥 Download Content** - Retrieve certified documents
-- **☁️ Permanent Storage** - Documents stored permanently on Arweave via Irys
+> 🚀 **Ultra-Simplified Workflow**: 2 nodes to certify documents with permanent blockchain storage
 
-### **🚀 Automated B2B Workflows**
-- **💳 Automated CHECKHC Payment** - Pay from n8n using Solana Wallet credential
-- **🤖 Server-Side NFT Minting** - NFT created and transferred automatically
-- **⚡ Zero Human Intervention** - Complete end-to-end automation
-- **🔐 Secure Credential Storage** - API Keys + Solana Wallet encrypted in n8n
-- **📦 Permanent Archiving** - All documents permanently stored on Arweave
+---
 
-## 🚀 Fully Automated B2B Workflows
+## 🎯 What is DigiCryptoStore?
 
-**Complete end-to-end automation** with zero human intervention:
+DigiCryptoStore is an n8n community node that enables **automated document certification** on the **Solana blockchain** with **permanent Arweave storage**.
 
-- ✅ **Upload** - n8n uploads documents to DigiCryptoStore
-- ✅ **Get Pricing** - Retrieves current CHECKHC pricing in real-time
-- ✅ **Pay Automatically** - n8n pays with CHECKHC from Solana Wallet credential
-- ✅ **Upload to Arweave** - Documents permanently stored via Irys (3 files: original, preview, metadata)
-- ✅ **Mint NFT** - NFT created server-side automatically
-- ✅ **Transfer** - NFT transferred to payer wallet
-- ✅ **Monitor** - Check status and completion
+###  **Key Features:**
 
-**Use Cases:**
-- 📄 High-volume document certification (100s-1000s documents)
-- 🏛️ Digital vault for permanent archiving
-- 🏢 B2B integrations and partnerships
+- 📄 **Document Certification** - PDF, DOCX, XLSX, and more
+- ☁️  **Permanent Storage** - Stored forever on Arweave via Irys (cannot be deleted)
+- 🎨 **NFT Proof** - Each document gets a unique NFT on Solana
+- 💰 **Automated Payments** - CHECKHC tokens paid automatically from n8n wallet
+- 🤖 **Zero Manual Intervention** - Complete end-to-end automation
+- ⚡ **Ultra-Fast** - Complete certification in ~30-60 seconds
+- 🔐 **Secure** - Private keys encrypted in n8n credentials
+
+### **Perfect For:**
+
+- 🏛️ Digital vaults and permanent document archiving
+- 📊 High-volume B2B document certification (100s-1000s)
+- ✅ Enterprise compliance and audit trails
 - 🔄 Automated certification pipelines
-- ✅ Enterprise compliance workflows
-- 📊 Batch processing with monitoring
 - 🗄️ Legal document preservation with blockchain proof
 
 ---
 
-## 📦 Installation
+## 🚀 Quick Start
 
-### ⚠️ Required Dependencies
-
-**IMPORTANT:** This node requires `n8n-nodes-solana-swap` v1.6.1+ for Solana blockchain operations (CHECKHC token transfers, balance checks, swaps).
-
-**What's new in v1.6.1:**
-- ✅ SPL token transfers fully implemented with `@solana/spl-token`
-- ✅ Automatic associated token account creation
-- ✅ Compatible with all RPC providers (Helius, QuickNode, Alchemy)
-
-### Via npm (Recommended)
+### **1. Install**
 
 ```bash
-# Install both packages
-npm install n8n-nodes-solana-swap n8n-nodes-digicryptostore
-
-# Or globally for n8n
 cd ~/.n8n
 npm install n8n-nodes-solana-swap n8n-nodes-digicryptostore
-
-# Restart n8n
 n8n start
 ```
 
-### Via n8n Community Nodes (When Published)
+### **2. Configure Credentials**
 
-1. Go to **Settings** → **Community Nodes**
-2. Click **Install**
-3. Enter: `n8n-nodes-digicryptostore`
-4. Click **Install**
+#### **Credential A: DigiCryptoStore API**
+1. Get API key from: https://app.photocertif.com
+2. In n8n: **Credentials** → **PhotoCertif API**
+3. Enter URL: `https://app.photocertif.com` and your API key
 
-### Manual Installation (Development)
+#### **Credential B: Solana Wallet**
+1. In n8n: **Credentials** → **Solana API**
+2. Enter your wallet's private key (base58 format)
+3. Recommended: Use a dedicated wallet with limited funds
 
-```bash
-cd ~/.n8n/nodes
-npm install /path/to/n8n-nodes-digicryptostore
-```
+### **3. Import Workflow**
 
-Restart n8n after installation.
-
----
-
-## 🔑 Configuration
-
-### Credential 1: DigiCryptoStore API (Required)
-
-1. Open n8n → **Credentials** → **New Credential**
-2. Search for "**PhotoCertif API**" (same credential type)
-3. Fill in:
-   - **PhotoCertif URL**: `https://app.photocertif.com`
-   - **API Key**: `pk_live_xxxxxxxxxxxxx`
-
-**Generate API Key:**
-1. Go to https://app.photocertif.com
-2. Login → **My Account** → **API Keys** → **Create API Key**
-3. Select scopes: `docs:read`, `docs:upload`, `docs:write`
-4. Copy the API key (starts with `pk_live_` or `pk_test_`)
+1. Download: [`workflow-docs-certification-v2.4.0.json`](./workflow-docs-certification-v2.4.0.json)
+2. In n8n: **Import from File**
+3. Select credentials
+4. Execute!
 
 ---
 
-### Credential 2: Solana API ⭐ (Required for Automated Payments)
+## 📊 How It Works
 
-**Provided by**: `n8n-nodes-solana-swap` package
-
-**Required for**: Automated CHECKHC token transfers and blockchain operations
-
-1. Open n8n → **Credentials** → **New Credential**
-2. Search for "**Solana API**"
-3. Fill in:
-   - **Network**: `Mainnet Beta` (or Devnet for testing)
-   - **RPC Endpoint Type**: `Public RPC` or `Custom RPC` (Helius/QuickNode for better performance)
-   - **Private Key**: Your Solana wallet private key (base58 format)
-   - **Public Key**: Your Solana wallet address
-
-**✅ Benefits:**
-- **Reusable** across multiple n8n nodes (PhotoCertif, SolanaSwap, etc.)
-- **Flexible** RPC configuration (public or private endpoints)
-- **Complete** Solana API access for advanced workflows
-
-**⚠️ Security Recommendations:**
-- Use a **dedicated wallet** for n8n (not your main wallet)
-- Store only the **necessary CHECKHC tokens** (~1000-10000 for testing)
-- The private key is **encrypted** in n8n credentials
-- **Never share** your private key
-
-**Get a Private Key:**
-
-**Option A - Export from Phantom:**
 ```
-1. Open Phantom → Settings → Security & Privacy
-2. Export Private Key → Copy (base58 format)
+📝 Input Data (storage_id, document_name, owner, etc.)
+     ↓
+🚀 Certify My Document (1 API call)
+     │
+     ├─→ 1. Verify storage & get pricing
+     ├─→ 2. Check SOL/CHECKHC balances
+     ├─→ 3. Auto-swap SOL→CHECKHC (if needed)
+     ├─→ 4. Transfer CHECKHC to payment wallet
+     ├─→ 5. Upload 3 files to Arweave permanently:
+     │      • Original document
+     │      • Certified preview with watermark
+     │      • NFT metadata JSON
+     ├─→ 6. Create NFT on Solana
+     └─→ 7. Finalize certification
+     ↓
+✅ Complete! (NFT mint, Arweave URLs, status)
 ```
 
-**Option B - Create new wallet:**
-```bash
-node -e "
-const {Keypair} = require('@solana/web3.js');
-const bs58 = require('bs58');
-const k = Keypair.generate();
-console.log('Address:', k.publicKey.toString());
-console.log('Private Key:', bs58.encode(k.secretKey));
-"
-```
+**Total Time:** ~30-60 seconds  
+**Complexity:** 2 nodes (Input + Certify)  
+**Manual Steps:** 0
 
-**Fund the Wallet:**
-- Buy CHECKHC tokens: https://jup.ag/swap/SOL-CHECKHC
-- Send to your n8n wallet address
-- Recommended: 500-10000 CHECKHC (~$3-50)
+---
+
+## 💰 Pricing
+
+### **Per Certification:**
+
+**CHECKHC Payment** (paid to DigiCryptoStore):
+- ~10 USD per document (paid in CHECKHC tokens)
+- Current rate: ~245 CHECKHC per certification
+
+**Blockchain Fees** (paid in SOL from your wallet):
+- Arweave storage (3 files): ~0.02-0.05 SOL
+- NFT minting: ~0.01 SOL
+- **Total**: ~0.03-0.06 SOL per document
+
+### **Wallet Requirements:**
+
+- **SOL**: 0.1-0.5 SOL for multiple certifications
+- **CHECKHC**: System auto-swaps SOL→CHECKHC when needed
 
 ---
 
 ## 📚 Operations
 
-### **1. Get Pricing** ⭐ NEW
+The node provides these operations:
 
-Get current CHECKHC pricing for certification services.
+| Operation | Description |
+|-----------|-------------|
+| `Get Pricing` | Retrieve current CHECKHC pricing |
+| `Upload` | Upload document (base64 or URL) |
+| `Submit Certification` | Prepare certification with metadata |
+| `Get Status` | Check certification progress |
+| `Wait for Certification` | Poll until completion |
+| `Download` | Retrieve certified document |
 
-**Parameters:**
-- **Resource Type**: `docs` or `image2`
+---
 
-**Returns:**
+## 🔧 Advanced Features
+
+### **URL Upload Support**
+
+Upload from Google Drive, Dropbox, or any public URL:
+
 ```json
 {
-  "success": true,
-  "type": "docs",
-  "price_checkhc": 175.48,
-  "price_usd": 1.0,
-  "checkhc_mint": "5tpkr...49uau",
-  "payment_wallet": "C6bK...hESFg",
-  "network": "mainnet-beta"
+  "fileUrl": "https://drive.google.com/uc?id=YOUR_ID&export=download",
+  "title": "My Document",
+  "file_extension": "pdf"
+}
+```
+
+### **Batch Processing**
+
+Process multiple documents in a loop:
+
+```json
+[
+  {"storage_id": "iv_xxx1", "document_name": "Contract 1"},
+  {"storage_id": "iv_xxx2", "document_name": "Contract 2"}
+]
+```
+
+### **Custom Collections**
+
+Add documents to a Solana NFT collection:
+
+```json
+{
+  "collection_mint_address": "YOUR_COLLECTION_MINT"
+}
+```
+
+### **Affiliate System**
+
+Track commissions with affiliate codes:
+
+```json
+{
+  "affiliate_code": "PARTNER_XYZ"
 }
 ```
 
 ---
 
-### **2. Upload** ⭐ Enhanced with URL Support
+## 📦 What Gets Stored on Arweave
 
-Upload a document or image to PhotoCertif.
+Each certification uploads **3 files permanently**:
 
-**Parameters:**
-- **Resource Type**: `docs` (documents) or `image2` (art)
-- **Input Type** ⭐ NEW:
-  - `Base64 String` - Traditional base64 encoded content
-  - `URL` - Download from Google Drive, Dropbox, or any public URL
-- **File (Base64)**: Base64 encoded content (if Input Type = Base64)
-- **File URL**: Public URL to download file from (if Input Type = URL)
-- **Title**: Content title (required)
-- **Description**: Optional description
+1. **Original Document** (`https://gateway.irys.xyz/...`)
+   - Your original file (PDF, DOCX, etc.)
+   - Permanently accessible
+   
+2. **Certified Preview** (`https://gateway.irys.xyz/...`)
+   - 1200x1200px image with watermark
+   - Shows certification code and metadata
+   
+3. **NFT Metadata** (`https://gateway.irys.xyz/...`)
+   - JSON file with all certification data
+   - Conforms to Metaplex standards
 
-**URL Examples:**
-```javascript
-// Google Drive
-"https://drive.google.com/uc?id=FILE_ID&export=download"
-
-// Dropbox
-"https://www.dropbox.com/s/abc123/photo.jpg?dl=1"
-
-// Direct URL
-"https://cdn.example.com/images/photo.jpg"
-```
-
-**Returns:**
-```json
-{
-  "success": true,
-  "storage_id": "iv_1234567890_abc123",
-  "message": "Upload successful"
-}
-```
-
----
-
-### **3. Submit Certification**
-
-Submit certification form with all metadata. **Note:** User must complete payment and minting in PhotoCertif interface.
-
-**Parameters (4 Required + 11 Optional):**
-
-**Required:**
-- **Storage ID**: `iv_xxxxx` from upload
-- **Certification Name**: Name for the NFT
-- **Symbol**: 4 uppercase letters (e.g., `CNTR`)
-- **Description**: Detailed description
-- **Owner**: Owner name
-
-**Optional:**
-- **Collection Mint Address**: NFT collection to join
-- **Website URL**: Project website
-- **Twitter URL**: Twitter/X profile
-- **Discord URL**: Discord server
-- **Instagram URL**: Instagram profile
-- **Telegram URL**: Telegram channel
-- **Medium URL**: Medium blog
-- **Wiki URL**: Documentation wiki
-- **YouTube URL**: YouTube channel
-
-**Returns:**
-```json
-{
-  "success": true,
-  "storage_id": "iv_xxxxx",
-  "notice": "Certification form submitted. User must complete payment...",
-  "certification_url": "https://app2.photocertif.com/media/docs/certification?iv_storageid=iv_xxxxx"
-}
-```
-
----
-
-### **3. Get Status**
-
-Check certification status.
-
-**Parameters:**
-- **Storage ID**: `iv_xxxxx`
-
-**Returns (docs):**
-```json
-{
-  "id": "iv_xxxxx",
-  "title": "Contract 2025",
-  "status": "uploaded" | "certified",
-  "created_at": "2025-01-06T20:00:00Z",
-  "nft_address": "ABC123..." // if certified
-}
-```
-
-**Returns (image2 - with AI fields):**
-```json
-{
-  "id": "iv_xxxxx",
-  "title": "Artwork",
-  "status": "certified",
-  "nft_address": "ABC123...",
-  "ai_generated": false,
-  "ai_generated_score": 0.12,
-  "ai_source": "HUMAN_CREATED",
-  "Human_score": 0.88,
-  "ai_prediction_id": "pred_xyz"
-}
-```
-
----
-
-### **4. Wait for Certification** ⭐
-
-Poll status until certified or timeout. **This is the key to automation!**
-
-**Parameters:**
-- **Storage ID**: `iv_xxxxx`
-- **Polling Interval**: Seconds between checks (default: 300 = 5 minutes)
-- **Max Wait Time**: Maximum seconds to wait (default: 86400 = 24 hours)
-
-**How it works:**
-1. Checks status every X seconds
-2. Returns immediately when `status === "certified"`
-3. Times out if max wait time exceeded
-4. Useful after user is notified to complete payment
-
-**Returns:**
-```json
-{
-  "success": true,
-  "status": "certified",
-  "storage_id": "iv_xxxxx",
-  "nft_address": "ABC123...",
-  "wait_time_seconds": 1800,
-  "attempts": 6,
-  "message": "Certification completed after 1800 seconds (6 checks)"
-}
-```
-
----
-
-### **5. Download**
-
-Download certified content.
-
-**Parameters:**
-- **Storage ID**: `iv_xxxxx`
-
-**Returns:**
-```json
-{
-  "download_url": "https://...",
-  "expires_at": "2025-01-07T20:00:00Z"
-}
-```
-
----
-
-## 📂 Available Workflows
-
-### **Docs Certification v2.2.0 (Recommended)**
-**File:** `workflow-docs-certification-v2.2.0.json`  
-**Status:** ✅ Tested & Production-Ready
-
-**Features:**
-- ✅ **Automatic upload** from URL or base64
-- ✅ **Real-time pricing** with affiliate split calculation
-- ✅ **Auto SOL→CHECKHC swap** if balance insufficient
-- ✅ **Automatic CHECKHC transfers** to payment + affiliate wallets
-- ✅ **Server-side NFT minting** and transfer
-- ✅ **Complete B2B automation** - zero human intervention
-
-**Fixed in v2.2.0:**
-- 🐛 Fixed `storageId` path in certify operation (was causing HTTP 500)
-- ✅ All nodes tested and validated end-to-end
-
-**Changelog:** See `WORKFLOW_V2.2.0_CHANGELOG.md`
-
-### **Previous Versions**
-- `workflow-docs-certification-v2.1.0.json` - ⚠️ **Deprecated** (storageId bug)
-- `workflow-docs-certification-v2.0.0.json` - ⚠️ **Deprecated**
-- `workflow-image2-certification-v1.1.0.json` - For art/image certification
-
----
-
-## 🔄 Example Workflows
-
-### Workflow 1: Semi-Automated Certification
-
-```
-Manual Trigger
-  ↓
-PhotoCertif - Upload
-  - Resource: docs
-  - File: {{$json.base64_content}}
-  - Title: "Contract 2025"
-  ↓
-PhotoCertif - Submit Certification
-  - Storage ID: {{$json.storage_id}}
-  - Name: "Contract2025"
-  - Symbol: "CNTR"
-  - Description: "Legal contract"
-  - Owner: "Company ABC"
-  ↓
-Send Email - Notification
-  - To: user@example.com
-  - Subject: "⏳ Complete Certification Payment"
-  - Body: "Click: {{$json.certification_url}}"
-  ↓
-PhotoCertif - Wait for Certification
-  - Storage ID: {{$json.storage_id}}
-  - Polling Interval: 300 (5 minutes)
-  - Max Wait Time: 86400 (24 hours)
-  ↓
-Send Email - Success
-  - Subject: "✅ NFT Minted!"
-  - Body: "NFT: {{$json.nft_address}}"
-```
-
-### Workflow 2: Bulk Upload with Monitoring
-
-```
-Schedule Trigger (Daily)
-  ↓
-Read Files from Folder
-  ↓
-Loop: For each file
-  ↓
-  PhotoCertif - Upload
-    - File: {{$binary.data}}
-    - Title: {{$json.filename}}
-  ↓
-  Store in Database
-    - storage_id
-    - status: "pending"
-  ↓
-Send Report
-  - "Uploaded X documents, awaiting certification"
-```
-
-### Workflow 3: Status Monitor
-
-```
-Schedule Trigger (Every hour)
-  ↓
-Database - Get Pending Certifications
-  ↓
-Loop: For each pending
-  ↓
-  PhotoCertif - Get Status
-    - Storage ID: {{$json.storage_id}}
-  ↓
-  IF: status === "certified"
-    ↓
-    Database - Update Status
-    ↓
-    Send Notification
-    ↓
-    Generate Certificate PDF
-    ↓
-    Upload to Cloud Storage
-```
-
----
-
-## 💰 Pricing Information
-
-### DigiCryptoStore Pricing (Approximate)
-
-**Service:**
-- **Document Certification**: ~10 USD per certification (paid in CHECKHC tokens)
-
-**Blockchain Fees (paid in SOL from user wallet):**
-- **Arweave Storage** (3 files): ~0.02-0.05 SOL
-  - Original document
-  - Certified preview image with watermark
-  - NFT metadata JSON
-- **NFT Minting**: ~0.01 SOL
-- **Total**: ~0.03-0.06 SOL per certification
-
-**Payment Process:**
-1. Prices are shown in **USD** in config (`checkhc_docs_price: 10`)
-2. Converted to **CHECKHC tokens** dynamically based on market rate
-3. n8n wallet pays with **CHECKHC** from its balance
-4. Exchange rate: fetched from `/api/pricing/current`
-
-**Permanent Storage:**
-- All documents stored **permanently** on Arweave (pay once, store forever)
-- Accessible via Irys gateway: `https://gateway.irys.xyz/{transaction_id}`
-- Cannot be deleted or modified (immutable blockchain storage)
-
----
-
-## 🐛 Troubleshooting
-
-### "API Key invalid"
-- Verify API key is correct
-- Check scopes: `docs:read`, `docs:upload`, `docs:write`
-- Regenerate if needed
-
-### "Certification timeout"
-- User may not have completed payment yet
-- Increase `Max Wait Time` parameter
-- Send reminder notification
-
-### "Cannot connect to PhotoCertif"
-- Check URL is accessible: `https://app2.photocertif.com`
-- Verify n8n can reach external networks
-- Check firewall rules
-
-### "Status stays 'uploaded'"
-- Certification form submitted successfully
-- User must pay and mint NFT manually
-- Send link: `/media/docs/certification?iv_storageid=xxx`
+**Storage is permanent** - files cannot be deleted or modified.
 
 ---
 
 ## 🔐 Security Best Practices
 
-1. **API Keys**: Store in n8n credentials (encrypted)
-2. **HTTPS Only**: Always use HTTPS PhotoCertif URLs
-3. **Scope Limitation**: Only grant necessary scopes
-4. **Key Rotation**: Regenerate keys periodically
-5. **Test Environment**: Use test keys for development
+### **Wallet Security:**
+
+✅ **DO:**
+- Use a dedicated wallet for n8n
+- Store only necessary funds (~0.5 SOL + 10,000 CHECKHC)
+- Private keys are encrypted in n8n credentials
+
+❌ **DON'T:**
+- Use your main wallet
+- Store large amounts in n8n wallet
+- Share your private key
+
+### **API Key Security:**
+
+✅ **DO:**
+- Use API keys with minimum required scopes
+- Rotate keys regularly
+- Monitor usage logs
 
 ---
 
-## 📖 Additional Resources
+## 🐛 Troubleshooting
 
-- **PhotoCertif Docs**: https://photocertif.com/docs
-- **API Reference**: https://photocertif.com/docs/api
-- **n8n Docs**: https://docs.n8n.io
-- **GitHub**: https://github.com/checkhc/n8n-nodes-photocertif
+### **"Insufficient SOL balance"**
+- Transfer more SOL to your n8n wallet
+- Recommended: 0.1-0.5 SOL for multiple certifications
 
----
+### **"Insufficient CHECKHC balance"**
+- The workflow automatically swaps SOL→CHECKHC
+- Make sure you have enough SOL for the swap
 
-## 🤝 Support
+### **"API Key invalid"**
+- Verify scopes: `docs:read`, `docs:upload`, `docs:write`
+- Regenerate if needed
 
-- **GitHub Issues**: https://github.com/checkhc/n8n-nodes-photocertif/issues
-- **PhotoCertif Support**: support@photocertif.com
-- **n8n Community**: https://community.n8n.io
-
----
-
-## 📄 License
-
-MIT License - See LICENSE file for details
-
----
-
-## 🎉 Credits
-
-Built by [CheckHC](https://github.com/checkhc) for the PhotoCertif ecosystem.
+### **"Storage record not found"**
+- Upload the document first via `/api/storage/docs/upload/iv_route`
+- Check the `storage_id` is correct
 
 ---
 
 ## 📖 Documentation
 
-- **[QUICK_START.md](./QUICK_START.md)** - 5-minute setup guide
-- **[URL_SUPPORT_GUIDE.md](./URL_SUPPORT_GUIDE.md)** ⭐ NEW - Upload files from Google Drive, Dropbox, URLs
-- **[SOLANA_WALLET_SETUP.md](./SOLANA_WALLET_SETUP.md)** - Solana Wallet configuration
-- **[AUTOMATED_B2B_GUIDE.md](./AUTOMATED_B2B_GUIDE.md)** - Complete B2B automation guide
-- **[N8N_INTEGRATION_GUIDE.md](./N8N_INTEGRATION_GUIDE.md)** - Technical integration documentation
-- **[CHANGELOG_V2.md](./CHANGELOG_V2.md)** - What's new in v2.0
+- **[QUICK_START_DIGICRYPTOSTORE.md](./QUICK_START_DIGICRYPTOSTORE.md)** - 2-minute setup guide
+- **[WORKFLOW_V2.4.0_README.md](./WORKFLOW_V2.4.0_README.md)** - Detailed workflow documentation
+- **[CHANGELOG.md](./CHANGELOG.md)** - Version history
 
 ---
 
-## 🎯 Complete Workflow Example
+## 🆚 Comparison: DigiCryptoStore vs Manual Upload
 
-### **Automated Document Certification with CHECKHC Payment**
-
-```yaml
-Workflow: PhotoCertif + SolanaSwap Integration
-==============================================
-
-Trigger: Webhook or Schedule
-    ↓
-[1] PhotoCertif: Upload
-    - Operation: upload
-    - Input Type: url
-    - File URL: {{ $json.fileUrl }}
-    - Title: {{ $json.title }}
-    Output: { storageId, price_checkhc }
-    ↓
-[2] SolanaNode: Get Token Balance
-    - Operation: getTokenBalance  
-    - Token Mint: {{ $node["PhotoCertif"].json.checkhc_mint }}
-    - Wallet: (from Solana API credential)
-    Output: { balance }
-    ↓
-[3] IF Node: balance >= price_checkhc?
-    ↓ YES                          ↓ NO
-    [Skip to Step 5]               [4] SolanaNode: Execute Swap
-                                      - Operation: executeSwapAdvanced
-                                      - From: SOL
-                                      - To: CHECKHC
-                                      - Amount: {{ price_checkhc }}
-                                      Output: { swapTx }
-    ↓
-[5] SolanaNode: Send Token
-    - Operation: sendToken
-    - Token Mint: {{ $node["PhotoCertif"].json.checkhc_mint }}
-    - Recipient: {{ $node["PhotoCertif"].json.payment_wallet }}
-    - Amount: {{ $node["PhotoCertif"].json.price_checkhc }}
-    Output: { signature }
-    ↓
-[6] Wait 5 seconds (for blockchain confirmation)
-    ↓
-[7] PhotoCertif: Certify
-    - Operation: certify
-    - Storage ID: {{ $node["PhotoCertif"].json.storageId }}
-    - Name: {{ $json.name }}
-    - Symbol: {{ $json.symbol }}
-    - Description: {{ $json.description }}
-    Output: { certification_id }
-    ↓
-[8] PhotoCertif: Wait For Certification
-    - Operation: waitForCertification
-    - Storage ID: {{ $node["PhotoCertif Certify"].json.storageId }}
-    - Polling Interval: 300 (5 minutes)
-    - Max Wait: 3600 (1 hour)
-    Output: { status: "certified", nft_mint, metadata }
-    ↓
-[9] Success Notification
-    - Email/Slack/Discord notification
-    - Data: NFT Mint, Certification URL, etc.
-```
-
-### **Key Benefits of This Architecture:**
-
-✅ **Composable**: Mix PhotoCertif + SolanaSwap + any n8n node
-✅ **Flexible**: User can customize payment logic, add conditions, notifications
-✅ **Reusable**: Solana API credential used across multiple operations
-✅ **Maintainable**: Updates to Solana logic happen in solana-swap package
-✅ **Scalable**: Easy to add batch processing, error handling, retries
+| Feature | Manual Upload | DigiCryptoStore n8n |
+|---------|--------------|---------------------|
+| **Setup Time** | Every time | Once |
+| **Time per Doc** | 5-10 min | ~30-60 sec |
+| **Human Interaction** | Required | Zero |
+| **Batch Processing** | Manual | Automated |
+| **Payment** | Manual wallet | Automatic |
+| **NFT Creation** | Manual | Automatic |
+| **Monitoring** | Manual refresh | Automatic polling |
+| **Scale** | Limited | Unlimited |
 
 ---
 
-**Version**: 1.1.0  
-**Last Updated**: 2025-10-10
+## 🔗 Links
+
+- **Website**: https://www.checkhc.net
+- **GitHub**: https://github.com/checkhc/n8n-nodes-digicryptostore
+- **npm**: https://www.npmjs.com/package/n8n-nodes-digicryptostore
+- **DigiCryptoStore**: https://app.photocertif.com
+- **Support**: contact@checkhc.net
 
 ---
 
-## 🆕 What's New in v2.1
+## 📄 License
 
-### **URL Upload Support**
-- Upload files directly from URLs (Google Drive, Dropbox, CDN)
-- No more manual base64 encoding required
-- Automatic content-type detection and conversion
+MIT © [CHECKHC](https://checkhc.net)
 
-### **Complete Social Links**
-- All 8 optional social link fields now included in workflows
-- Twitter/X, Discord, Instagram, Telegram, Medium, Wiki, YouTube
-- Full NFT metadata support
+---
 
-### **Batch Certification Ready** ⭐
-- Professional XLSX template with examples (`photocertif-batch-example.xlsx`)
-- 3 complete examples + 6 empty rows ready to fill
-- Instructions tab included in Excel file
-- Perfect for Google Sheets integration
+## 🙏 Credits
 
-See **[URL_SUPPORT_GUIDE.md](./URL_SUPPORT_GUIDE.md)** and **[BATCH_CERTIFICATION_GUIDE.md](./BATCH_CERTIFICATION_GUIDE.md)** for complete documentation.
+Built with:
+- [n8n](https://n8n.io) - Workflow automation
+- [Solana](https://solana.com) - Blockchain
+- [Arweave](https://www.arweave.org) - Permanent storage
+- [Irys](https://irys.xyz) - Upload protocol
+- [Metaplex](https://www.metaplex.com) - NFT standard
+
+---
+
+**Made by CHECKHC** - Blockchain certification made easy 🚀

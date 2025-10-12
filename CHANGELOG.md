@@ -1,127 +1,106 @@
 # Changelog
 
-All notable changes to this project will be documented in this file.
+All notable changes to **n8n-nodes-digicryptostore** will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.1.0] - 2025-01-10
+---
 
-### 🚀 Major Refactoring: Architecture Modulaire
+## [1.0.0] - 2025-01-12
 
-**⚠️ BREAKING CHANGE:** Removed `SolanaWallet` credential in favor of `SolanaApi` from `n8n-nodes-solana-swap`
+### 🎉 Initial Release
 
-### Changed
-- **Removed duplicate Solana dependencies** (@solana/web3.js, @solana/spl-token, bs58)
-  - Now relies on `n8n-nodes-solana-swap` package as peerDependency
-  - Reduces package size and eliminates code duplication
-  - Centralizes Solana logic maintenance
-  
-- **Removed `SolanaWallet` credential**
-  - Use `SolanaApi` credential from n8n-nodes-solana-swap instead
-  - More complete with RPC type selection (public/custom)
-  - Reusable across multiple n8n nodes
-  
-- **Updated architecture to composable design**
-  - PhotoCertif focuses on certification logic only
-  - Solana operations delegated to n8n-nodes-solana-swap
-  - Users build workflows by combining nodes
+**DigiCryptoStore** - Fork from `n8n-nodes-photocertif` with exclusive focus on document certification (media/docs).
 
 ### Added
-- **peerDependencies**: `n8n-nodes-solana-swap ^1.5.0`
-- **Complete workflow example** in README
-  - Step-by-step PhotoCertif + SolanaSwap integration
-  - Shows balance check, swap, transfer, certify flow
-  - Demonstrates composability benefits
+- **Ultra-simplified workflow v2.4.0**: 2 nodes instead of 13
+  - Node 1: Input Data
+  - Node 2: Certify My Document (does everything)
+- **Unified API endpoint**: `/api/storage/docs/b2b-certify-full`
+  - Single API call for complete certification
+  - Automatic SOL→CHECKHC swap
+  - Automatic CHECKHC transfers (main + affiliate)
+  - Permanent Arweave storage (3 files: original, preview, metadata)
+  - NFT creation on Solana
+  - Complete in ~30-60 seconds
+- **Permanent Arweave/Irys storage**: All documents stored permanently
+- **Automated B2B workflow**: Zero human intervention required
+- **Private key transmission**: Transmitted once in HTTPS (not 6 times)
+- **Documentation**:
+  - `README.md`: Complete consolidated guide
+  - `QUICK_START_DIGICRYPTOSTORE.md`: 2-minute setup
+  - `WORKFLOW_V2.4.0_README.md`: Detailed workflow documentation
+
+### Changed
+- **Package renamed**: `n8n-nodes-photocertif` → `n8n-nodes-digicryptostore`
+- **Focus**: Document certification only (media/docs)
+- **Removed**: All media/image, media/image2, media/image3 references
+- **Simplified**: From 13 nodes to 2 nodes
+- **Centralized**: All business logic moved to backend
 
 ### Removed
-- `credentials/SolanaWallet.credentials.ts` (replaced by SolanaApi)
-- Direct Solana dependencies from package.json
+- **Obsolete workflows**: v1.1.0, v2.0.0, v2.1.0, v2.2.0
+- **Obsolete documentation**: 28 redundant/obsolete MD files removed
+- **Image certification**: media/image2 workflows and documentation
+- **Art certification**: Removed to focus exclusively on documents
 
-### Migration Guide
-For existing users:
+### Fixed
+- **Private key security**: Now transmitted once instead of 6 times
+- **Error handling**: Centralized in single endpoint with rollback support
+- **Transaction atomicity**: All operations in single request
+- **Logging**: Unified backend logs with `[B2B FULL]` prefix
 
-**Before (v1.0.2):**
-```bash
-npm install n8n-nodes-photocertif
-```
-Use `SolanaWallet` credential
+### Technical Details
+- **Dependencies**: Requires `n8n-nodes-solana-swap` v1.6.1+
+- **Blockchain**: Solana mainnet-beta
+- **Storage**: Arweave via Irys
+- **Payment**: CHECKHC tokens (auto-swap from SOL)
+- **NFT Standard**: Metaplex
+- **Backend**: Next.js 15.1.5
 
-**After (v1.1.0):**
-```bash
-npm install n8n-nodes-solana-swap n8n-nodes-photocertif
-```
-Use `SolanaApi` credential (from solana-swap package)
+### Pricing
+- **Service**: ~10 USD per certification (paid in CHECKHC)
+- **Blockchain fees**: ~0.03-0.06 SOL per document
+  - Arweave storage (3 files): ~0.02-0.05 SOL
+  - NFT minting: ~0.01 SOL
 
-**Workflow Update:**
-1. Install `n8n-nodes-solana-swap` package
-2. Replace `SolanaWallet` credential with `SolanaApi`
-3. Use `SolanaNode` for token transfers/swaps
-4. PhotoCertif node handles certification only
+### Security
+- Private keys encrypted in n8n credentials
+- API keys with scoped permissions
+- Dedicated wallet recommended (~0.5 SOL + 10,000 CHECKHC)
+- HTTPS transmission for all sensitive data
 
-### Benefits
-- ✅ **30% smaller package** (no duplicate Solana deps)
-- ✅ **Better composability** (mix-and-match n8n nodes)
-- ✅ **Centralized updates** (Solana logic in one place)
-- ✅ **More flexible** (custom payment workflows)
-- ✅ **Reusable credentials** (one Solana config for all)
+### Performance
+- Complete certification: ~30-60 seconds
+- 3 Irys uploads: ~10-20 seconds
+- NFT creation: ~5-10 seconds
+- Automatic retries and error handling
 
 ---
 
-## [1.0.2] - 2025-01-08
+## Future Releases
 
-### Security
-- **CRITICAL:** Fixed SSRF (Server-Side Request Forgery) vulnerability in file URL downloads
-  - Added `validateUrl()` function to block internal/private IP access
-  - Blocks non-HTTP/HTTPS protocols (file://, ftp://, etc.)
-  - Blocks localhost, 127.0.0.1, ::1, and AWS metadata endpoint (169.254.169.254)
-  - Blocks private IP ranges (10.x.x.x, 172.16-31.x.x, 192.168.x.x)
-  
-- **CRITICAL:** Added request timeouts to prevent indefinite hanging
-  - REQUEST_TIMEOUT: 30 seconds for API calls
-  - DOWNLOAD_TIMEOUT: 120 seconds for file downloads
-  - Applied to all 7 axios requests (upload, getStatus, certify, waitForCertification, download, getPricing)
-  
-- **CRITICAL:** Added file size limits to prevent memory exhaustion
-  - MAX_FILE_SIZE: 10MB maximum for file uploads
-  - maxContentLength and maxBodyLength enforced on axios downloads
-  
-- **CRITICAL:** Sanitized error messages to prevent sensitive data exposure
-  - No longer exposes full `error.response?.data` in error responses
-  - Prevents API keys, tokens, and internal paths from leaking in logs
-  
-- **HIGH:** Added minimum polling interval protection
-  - MIN_POLLING_INTERVAL: 10 seconds minimum enforced
-  - Prevents API spam and rate limiting issues
-  - Applied to `waitForCertification` operation
+### [1.1.0] - Planned
+- Batch processing optimization
+- Enhanced error reporting
+- Webhook notifications
+- Status dashboard
 
-### Changed
-- Updated package version to 1.0.2
-- Improved code documentation with security comments
+### [1.2.0] - Planned
+- Multi-collection support
+- Advanced affiliate tracking
+- Custom watermark templates
+- API v2 integration
 
-### Notes
-- All changes are backwards compatible (no breaking changes)
-- Existing workflows will continue to work without modifications
-- File uploads from URLs now have better security and stability
+---
 
-## [1.0.1] - 2024-12-XX
+## Support
 
-### Added
-- Added `fileExtension` parameter for URL uploads (Google Drive support)
-- Support for files without extensions in URL (e.g., Google Drive shared links)
+- 📧 Email: contact@checkhc.net
+- 🌐 Website: https://www.checkhc.net
+- 💬 GitHub Issues: https://github.com/checkhc/n8n-nodes-digicryptostore/issues
 
-### Fixed
-- Fixed file naming issues with Google Drive URLs
-- Improved error handling for file uploads
+---
 
-## [1.0.0] - 2024-11-XX
-
-### Added
-- Initial release
-- DigiCryptoStore API integration for n8n
-- Support for document certification on Solana blockchain with permanent Arweave storage
-- Operations: upload, certify, getStatus, waitForCertification, download, getPricing
-- Support for document certification (media/docs) with permanent archiving
-- Base64 and URL input types for file uploads
-- Comprehensive error handling
-- Polling mechanism for certification status
+**Made by CHECKHC** 🚀
