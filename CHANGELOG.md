@@ -118,10 +118,10 @@ Use `SolanaApi` credential (from solana-swap package)
 
 ### Added
 - Initial release
-- PhotoCertif API integration for n8n
-- Support for document certification on Solana blockchain
+- DigiCryptoStore API integration for n8n
+- Support for document certification on Solana blockchain with permanent Arweave storage
 - Operations: upload, certify, getStatus, waitForCertification, download, getPricing
-- Support for both document (media/docs) and art (media/image2) certification
+- Support for document certification (media/docs) with permanent archiving
 - Base64 and URL input types for file uploads
 - Comprehensive error handling
 - Polling mechanism for certification status

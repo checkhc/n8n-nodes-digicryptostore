@@ -1,26 +1,28 @@
 {
-  "name": "n8n-nodes-photocertif",
-  "version": "1.2.0",
-  "description": "PhotoCertif - Document and art certification on Solana blockchain with AI authentication. Developed by CHECKHC.",
+  "name": "n8n-nodes-digicryptostore",
+  "version": "1.0.0",
+  "description": "DigiCryptoStore - Secure document certification and archiving on Solana blockchain with permanent Arweave storage. Developed by CHECKHC.",
   "keywords": [
     "n8n",
     "n8n-community-node-package",
-    "photocertif",
+    "digicryptostore",
     "checkhc",
     "blockchain",
     "solana",
+    "arweave",
+    "irys",
     "nft",
     "certification",
     "document",
-    "ai-authentication",
-    "art-certification"
+    "digital-vault",
+    "permanent-storage"
   ],
   "license": "MIT",
   "homepage": "https://www.checkhc.net",
   "author": "CHECKHC <contact@checkhc.net> (https://checkhc.net)",
   "repository": {
     "type": "git",
-    "url": "https://github.com/checkhc/n8n-nodes-photocertif.git"
+    "url": "https://github.com/checkhc/n8n-nodes-digicryptostore.git"
   },
   "main": "index.js",
   "scripts": {

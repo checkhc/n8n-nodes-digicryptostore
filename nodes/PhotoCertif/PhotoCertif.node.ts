@@ -752,7 +752,7 @@ export class PhotoCertif implements INodeType {
 
 						lastStatus = statusResponse.data.status;
 
-						if (lastStatus === 'certified') {
+						if (lastStatus === 'certified' || lastStatus === 'COMPLETED') {
 							// Success! Certification complete
 							const waitTimeSeconds = Math.floor((Date.now() - startTime) / 1000);
 							responseData = {
@@ -772,7 +772,7 @@ export class PhotoCertif implements INodeType {
 					}
 
 					// If we exit the loop without finding certified status, it's a timeout
-					if (lastStatus !== 'certified') {
+					if (lastStatus !== 'certified' && lastStatus !== 'COMPLETED') {
 						throw new NodeOperationError(
 							this.getNode(),
 							`Certification timeout after ${maxWaitTime} seconds. Last status: ${lastStatus}. User may not have completed payment yet.`,

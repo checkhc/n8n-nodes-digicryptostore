@@ -1,45 +1,49 @@
-# n8n-nodes-photocertif
+# n8n-nodes-digicryptostore
 
-Custom n8n node for **PhotoCertif** - Document and Art certification on Solana blockchain with **fully automated B2B workflows**.
+Custom n8n node for **DigiCryptoStore** - Secure document certification and permanent archiving on Solana blockchain with Arweave/Irys storage.
 
 ## 🎯 Features
 
 ### **Core Operations**
-- **📤 Upload Documents & Images** - Upload content for secure storage
-  - ⭐ **NEW**: URL Support - Upload from Google Drive, Dropbox, or any public URL
+- **📤 Upload Documents** - Upload documents for secure permanent storage
+  - ⭐ URL Support - Upload from Google Drive, Dropbox, or any public URL
   - Base64 encoding - Traditional method with base64 strings
+  - Supports: PDF, DOCX, XLSX, PNG, JPG, and more
 - **💰 Get Pricing** - Retrieve current CHECKHC pricing in real-time
-- **📝 Submit Certification** - Prepare certification with all metadata
-  - ✅ All optional fields supported (social links, collection, etc.)
+- **📝 Submit Certification** - Prepare certification with metadata
+  - ✅ All optional fields supported (owner, description, collection, etc.)
 - **🔍 Get Status** - Monitor certification progress
 - **⏳ Wait for Certification** - Poll status until completion (with timeout)
-- **📥 Download Content** - Retrieve certified files
-- **🎨 AI Analysis** - Automatic AI detection for art certification (media/image2)
+- **📥 Download Content** - Retrieve certified documents
+- **☁️ Permanent Storage** - Documents stored permanently on Arweave via Irys
 
-### **🚀 NEW: Automated B2B Workflows (v2.0)**
+### **🚀 Automated B2B Workflows**
 - **💳 Automated CHECKHC Payment** - Pay from n8n using Solana Wallet credential
 - **🤖 Server-Side NFT Minting** - NFT created and transferred automatically
 - **⚡ Zero Human Intervention** - Complete end-to-end automation
 - **🔐 Secure Credential Storage** - API Keys + Solana Wallet encrypted in n8n
+- **📦 Permanent Archiving** - All documents permanently stored on Arweave
 
 ## 🚀 Fully Automated B2B Workflows
 
 **Complete end-to-end automation** with zero human intervention:
 
-- ✅ **Upload** - n8n uploads documents/images to PhotoCertif
+- ✅ **Upload** - n8n uploads documents to DigiCryptoStore
 - ✅ **Get Pricing** - Retrieves current CHECKHC pricing in real-time
 - ✅ **Pay Automatically** - n8n pays with CHECKHC from Solana Wallet credential
-- ✅ **Mint NFT** - PhotoCertif mints NFT server-side automatically
+- ✅ **Upload to Arweave** - Documents permanently stored via Irys (3 files: original, preview, metadata)
+- ✅ **Mint NFT** - NFT created server-side automatically
 - ✅ **Transfer** - NFT transferred to payer wallet
 - ✅ **Monitor** - Check status and completion
 
 **Use Cases:**
-- 📄 High-volume document certification (100s-1000s)
-- 🎨 Art collection certification and authentication
+- 📄 High-volume document certification (100s-1000s documents)
+- 🏛️ Digital vault for permanent archiving
 - 🏢 B2B integrations and partnerships
 - 🔄 Automated certification pipelines
 - ✅ Enterprise compliance workflows
 - 📊 Batch processing with monitoring
+- 🗄️ Legal document preservation with blockchain proof
 
 ---
 
@@ -58,11 +62,11 @@ Custom n8n node for **PhotoCertif** - Document and Art certification on Solana b
 
 ```bash
 # Install both packages
-npm install n8n-nodes-solana-swap n8n-nodes-photocertif
+npm install n8n-nodes-solana-swap n8n-nodes-digicryptostore
 
 # Or globally for n8n
 cd ~/.n8n
-npm install n8n-nodes-solana-swap n8n-nodes-photocertif
+npm install n8n-nodes-solana-swap n8n-nodes-digicryptostore
 
 # Restart n8n
 n8n start
@@ -72,14 +76,14 @@ n8n start
 
 1. Go to **Settings** → **Community Nodes**
 2. Click **Install**
-3. Enter: `n8n-nodes-photocertif`
+3. Enter: `n8n-nodes-digicryptostore`
 4. Click **Install**
 
 ### Manual Installation (Development)
 
 ```bash
 cd ~/.n8n/nodes
-npm install /path/to/n8n-nodes-photocertif
+npm install /path/to/n8n-nodes-digicryptostore
 ```
 
 Restart n8n after installation.
@@ -88,16 +92,16 @@ Restart n8n after installation.
 
 ## 🔑 Configuration
 
-### Credential 1: PhotoCertif API (Required)
+### Credential 1: DigiCryptoStore API (Required)
 
 1. Open n8n → **Credentials** → **New Credential**
-2. Search for "**PhotoCertif API**"
+2. Search for "**PhotoCertif API**" (same credential type)
 3. Fill in:
-   - **PhotoCertif URL**: `https://localhost` (dev) or `https://app2.photocertif.com` (prod)
+   - **PhotoCertif URL**: `https://app.photocertif.com`
    - **API Key**: `pk_live_xxxxxxxxxxxxx`
 
 **Generate API Key:**
-1. Go to https://app2.photocertif.com
+1. Go to https://app.photocertif.com
 2. Login → **My Account** → **API Keys** → **Create API Key**
 3. Select scopes: `docs:read`, `docs:upload`, `docs:write`
 4. Copy the API key (starts with `pk_live_` or `pk_test_`)
@@ -443,42 +447,29 @@ Loop: For each pending
 
 ## 💰 Pricing Information
 
-### PhotoCertif Pricing (Approximate)
+### DigiCryptoStore Pricing (Approximate)
 
-**Services:**
-- **Documents (media/docs)**: ~1 USD per certification
-- **Art (media/image2)**: ~1 USD per certification
+**Service:**
+- **Document Certification**: ~10 USD per certification (paid in CHECKHC tokens)
 
 **Blockchain Fees (paid in SOL from user wallet):**
-- **Arweave Storage**: ~0.02-0.05 SOL
-- **NFT Minting**: ~0.005 SOL
-- **Total**: ~0.025-0.055 SOL per certification
+- **Arweave Storage** (3 files): ~0.02-0.05 SOL
+  - Original document
+  - Certified preview image with watermark
+  - NFT metadata JSON
+- **NFT Minting**: ~0.01 SOL
+- **Total**: ~0.03-0.06 SOL per certification
 
 **Payment Process:**
-1. Prices are shown in **USD** in config
-2. Converted to **CHECKHC tokens** dynamically
-3. User pays with **CHECKHC** from their balance
+1. Prices are shown in **USD** in config (`checkhc_docs_price: 10`)
+2. Converted to **CHECKHC tokens** dynamically based on market rate
+3. n8n wallet pays with **CHECKHC** from its balance
 4. Exchange rate: fetched from `/api/pricing/current`
 
----
-
-## 🎨 Differences: docs vs image2
-
-| Feature | media/docs | media/image2 |
-|---------|------------|--------------|
-| **File Types** | PDF, DOCX, TXT, ZIP | JPG, PNG, GIF, WEBP |
-| **AI Analysis** | ❌ No | ✅ Yes (4 levels) |
-| **AI Fields in Response** | ❌ No | ✅ Yes (5 fields) |
-| **Certification Levels** | N/A | HUMAN_CREATED, LIKELY_HUMAN, LIKELY_AI, AI_GENERATED |
-| **NFT Attributes** | Basic | **Extended** (+ AI scores) |
-| **Price** | ~1 USD | ~1 USD |
-
-**AI Fields (image2 only):**
-- `ai_generated`: Is it AI-generated?
-- `ai_generated_score`: AI probability (0-1)
-- `ai_source`: Certification level
-- `Human_score`: Human probability
-- `ai_prediction_id`: Prediction ID
+**Permanent Storage:**
+- All documents stored **permanently** on Arweave (pay once, store forever)
+- Accessible via Irys gateway: `https://gateway.irys.xyz/{transaction_id}`
+- Cannot be deleted or modified (immutable blockchain storage)
 
 ---
 
