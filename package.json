@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-digicryptostore",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "DigiCryptoStore - Secure document certification and archiving on Solana blockchain with permanent Arweave storage. Developed by CHECKHC.",
   "keywords": [
     "n8n",
@@ -39,10 +39,11 @@
   "n8n": {
     "n8nNodesApiVersion": 1,
     "credentials": [
-      "dist/credentials/PhotoCertifApi.credentials.js"
+      "dist/credentials/DigiCryptoStoreApi.credentials.js",
+      "dist/credentials/SolanaApi.credentials.js"
     ],
     "nodes": [
-      "dist/nodes/PhotoCertif/PhotoCertif.node.js"
+      "dist/nodes/DigiCryptoStore/DigiCryptoStore.node.js"
     ]
   },
   "devDependencies": {
