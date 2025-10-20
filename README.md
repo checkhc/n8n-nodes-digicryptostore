@@ -3,7 +3,11 @@
 **DigiCryptoStore** - Secure document certification and permanent archiving on Solana blockchain with Arweave/Irys storage.
 
 [![npm version](https://img.shields.io/npm/v/n8n-nodes-digicryptostore)](https://www.npmjs.com/package/n8n-nodes-digicryptostore)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Status](https://img.shields.io/badge/Status-Beta-yellow)](https://github.com/checkhc/n8n-nodes-digicryptostore)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Discord Support](https://img.shields.io/badge/Support-Discord-5865F2)](https://discord.com/channels/1324516144979382335/1429512698504151200)
+
+> ⚠️ **Beta Status**: This node is in active development. Features are functional but we're continuously improving based on user feedback. Join our [Discord channel](https://discord.com/channels/1324516144979382335/1429512698504151200) for support and updates.
 
 > 🚀 **Ultra-Simplified Workflow**: 2 nodes to certify documents with permanent blockchain storage
 
@@ -265,7 +269,11 @@ Each certification uploads **3 files permanently**:
 - **GitHub**: https://github.com/checkhc/n8n-nodes-digicryptostore
 - **npm**: https://www.npmjs.com/package/n8n-nodes-digicryptostore
 - **DigiCryptoStore**: https://app.photocertif.com
-- **Support**: contact@checkhc.net
+- **Discord Support** (Primary): https://discord.com/channels/1324516144979382335/1429512698504151200
+  - Real-time community support
+  - Direct access to developers
+  - Share workflows and tips
+- **Email Support**: contact@checkhc.net
 
 ---
 
