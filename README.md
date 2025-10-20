@@ -53,7 +53,7 @@ DigiCryptoStore is an n8n community node that enables **automated document certi
 
 ```bash
 cd ~/.n8n
-npm install n8n-nodes-solana-swap n8n-nodes-digicryptostore
+npm install n8n-nodes-digicryptostore
 n8n start
 ```
 
