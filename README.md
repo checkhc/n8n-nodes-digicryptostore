@@ -1,26 +1,36 @@
 # n8n-nodes-digicryptostore
 
-**DigiCryptoStore** - Secure document certification and permanent archiving on Solana blockchain with Arweave/Irys storage.
+<div align="center">
 
 [![npm version](https://img.shields.io/npm/v/n8n-nodes-digicryptostore)](https://www.npmjs.com/package/n8n-nodes-digicryptostore)
 [![Status](https://img.shields.io/badge/Status-Beta-yellow)](https://github.com/checkhc/n8n-nodes-digicryptostore)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![CHECKHC](https://img.shields.io/badge/Powered_by-CHECKHC-orange?style=flat&logo=solana)](https://www.checkhc.net)
 [![Discord Support](https://img.shields.io/badge/Support-Discord-5865F2)](https://discord.com/channels/1324516144979382335/1429512698504151200)
 
-> ⚠️ **Beta Status**: This node is in active development. Features are functional but we're continuously improving based on user feedback. Join our [Discord channel](https://discord.com/channels/1324516144979382335/1429512698504151200) for support and updates.
+### 📄 **Document Certification with Permanent Blockchain Storage**
+### 🚀 **Ultra-Simplified Workflow: 2 Nodes Only**
 
-> 🚀 **Ultra-Simplified Workflow**: 2 nodes to certify documents with permanent blockchain storage
+**Powered by [CHECKHC](https://www.checkhc.net) - The Web3 Certification Ecosystem**
+
+[🌐 Visit CHECKHC.net](https://www.checkhc.net) | [📦 DigiCryptoStore Platform](https://app.photocertif.com) | [💬 Discord Community](https://discord.com/channels/1324516144979382335/1429512698504151200)
+
+</div>
+
+---
+
+> ⚠️ **Beta Status**: This node is in active development. Features are functional but we're continuously improving based on user feedback. Join our [Discord channel](https://discord.com/channels/1324516144979382335/1429512698504151200) for support and updates.
 
 ---
 
 ## 🎯 What is DigiCryptoStore?
 
-DigiCryptoStore is an n8n community node that enables **automated document certification** on the **Solana blockchain** with **permanent Arweave storage**.
+DigiCryptoStore is an n8n community node that enables **automated document certification** on the **Solana blockchain** with **secure permanent storage**.
 
 ###  **Key Features:**
 
 - 📄 **Document Certification** - PDF, DOCX, XLSX, and more
-- ☁️  **Permanent Storage** - Stored forever on Arweave via Irys (cannot be deleted)
+- ☁️  **Flexible Storage** - Permanent (for monetization) or Erasable (GDPR compliant)
 - 🎨 **NFT Proof** - Each document gets a unique NFT on Solana
 - 💰 **Automated Payments** - CHECKHC tokens paid automatically from n8n wallet
 - 🤖 **Zero Manual Intervention** - Complete end-to-end automation
@@ -70,28 +80,33 @@ n8n start
 
 ## 📊 How It Works
 
+### **Simple 4-Step Process:**
+
 ```
-📝 Input Data (storage_id, document_name, owner, etc.)
-     ↓
-🚀 Certify My Document (1 API call)
-     │
-     ├─→ 1. Verify storage & get pricing
-     ├─→ 2. Check SOL/CHECKHC balances
-     ├─→ 3. Auto-swap SOL→CHECKHC (if needed)
-     ├─→ 4. Transfer CHECKHC to payment wallet
-     ├─→ 5. Upload 3 files to Arweave permanently:
-     │      • Original document
-     │      • Certified preview with watermark
-     │      • NFT metadata JSON
-     ├─→ 6. Create NFT on Solana
-     └─→ 7. Finalize certification
-     ↓
-✅ Complete! (NFT mint, Arweave URLs, status)
+1. 📤 Upload Your Document
+   → PDF, DOCX, XLSX, or any file type
+   → Add title, description, and owner information
+
+2. 💳 Automated Payment
+   → Pay a few CHECKHC tokens (~10 USD)
+   → No manual wallet interaction needed
+
+3. ✅ Certification & Verification
+   → Advanced verification process
+   → NFT certificate created on blockchain
+   → Unique proof of authenticity
+
+4. 🎉 Get Your Results
+   → NFT certificate in your wallet
+   → Permanent certification proof
+   → Downloadable certified document
 ```
 
-**Total Time:** ~30-60 seconds  
-**Complexity:** 2 nodes (Input + Certify)  
-**Manual Steps:** 0
+**⏱️ Total Time:** ~30-60 seconds  
+**🤖 Automation:** 100% automated (zero manual steps)  
+**📦 Storage Options:**
+- **Permanent** - For assets you want to monetize or keep forever
+- **Erasable** - GDPR-compliant option (personal data can be deleted on request)
 
 ---
 
@@ -104,7 +119,7 @@ n8n start
 - Current rate: ~245 CHECKHC per certification
 
 **Blockchain Fees** (paid in SOL from your wallet):
-- Arweave storage (3 files): ~0.02-0.05 SOL
+- Secure storage: ~0.02-0.05 SOL
 - NFT minting: ~0.01 SOL
 - **Total**: ~0.03-0.06 SOL per document
 
@@ -177,23 +192,28 @@ Track commissions with affiliate codes:
 
 ---
 
-## 📦 What Gets Stored on Arweave
+## 📦 What You Get
 
-Each certification uploads **3 files permanently**:
+Each certification includes:
 
-1. **Original Document** (`https://gateway.irys.xyz/...`)
-   - Your original file (PDF, DOCX, etc.)
-   - Permanently accessible
-   
-2. **Certified Preview** (`https://gateway.irys.xyz/...`)
-   - 1200x1200px image with watermark
-   - Shows certification code and metadata
-   
-3. **NFT Metadata** (`https://gateway.irys.xyz/...`)
-   - JSON file with all certification data
-   - Conforms to Metaplex standards
+1. **🎫 NFT Certificate**
+   - Unique blockchain proof on Solana
+   - Verifiable authenticity
+   - Transferable ownership
 
-**Storage is permanent** - files cannot be deleted or modified.
+2. **📄 Certified Document**
+   - Your original file with certification
+   - Watermarked preview for sharing
+   - Downloadable anytime
+
+3. **🔒 Verification Data**
+   - All certification metadata
+   - Cryptographic proof of authenticity
+   - Compliant with industry standards
+
+**🇪🇺 GDPR Compliance:**
+- Choose **permanent storage** (ideal for NFT monetization)
+- Or **erasable storage** (personal data can be deleted on request)
 
 ---
 
@@ -283,15 +303,54 @@ MIT © [CHECKHC](https://checkhc.net)
 
 ---
 
-## 🙏 Credits
+## 🏢 About CHECKHC
 
-Built with:
-- [n8n](https://n8n.io) - Workflow automation
-- [Solana](https://solana.com) - Blockchain
-- [Arweave](https://www.arweave.org) - Permanent storage
-- [Irys](https://irys.xyz) - Upload protocol
-- [Metaplex](https://www.metaplex.com) - NFT standard
+**[CHECKHC](https://www.checkhc.net)** is a pioneering Web3 ecosystem for digital content certification and authentication.
+
+### **Our Solutions:**
+
+- 📄 **[DigiCryptoStore](https://app.photocertif.com)** - Document Certification with Secure Blockchain Storage
+- 🎨 **[PhotoCertif](https://app.photocertif.com)** - Image & Art Certification with AI Authentication
+- 🪙 **CHECKHC Token** - Native utility token on Solana blockchain
+- 🔗 **Blockchain Integration** - Solana + Secure Decentralized Storage
+- 🤖 **AI-Powered** - Advanced detection for authenticity verification
+
+### **Why Choose CHECKHC?**
+
+- ✅ **Flexible Storage** - Permanent or Erasable (GDPR-compliant options)
+- ✅ **Blockchain Proof** - Immutable NFT certificates on Solana
+- ✅ **Full Automation** - Complete end-to-end automation with n8n
+- ✅ **Enterprise Ready** - High-volume B2B document workflows
+- ✅ **Ultra-Fast** - ~30-60 seconds per certification
+- ✅ **Open Source** - Transparent & community-driven
+
+### **🚀 Get Started:**
+
+1. **Explore:** Visit [www.checkhc.net](https://www.checkhc.net)
+2. **Try it:** Sign up at [app.photocertif.com](https://app.photocertif.com)
+3. **Get CHECKHC Tokens:** [Buy on Jupiter](https://jup.ag/swap/SOL-CHECKHC)
+4. **Automate:** Install this n8n node for B2B workflows
+5. **Join Community:** [Discord Channel](https://discord.com/channels/1324516144979382335/1429512698504151200)
+
+### **💼 Enterprise Solutions:**
+
+Looking for custom integration or high-volume licensing?
+
+📧 Contact: **contact@checkhc.net**  
+🌐 Website: **[www.checkhc.net](https://www.checkhc.net)**
 
 ---
 
-**Made by CHECKHC** - Blockchain certification made easy 🚀
+## 🙏 Credits
+
+Built with ❤️ by the **[CHECKHC](https://www.checkhc.net)** team.
+
+**Powered by:**
+- [n8n](https://n8n.io) - Workflow automation platform
+- [Solana](https://solana.com) - High-performance blockchain
+- Leading decentralized storage technologies
+- Industry-standard NFT protocols
+
+---
+
+**Made by CHECKHC** - Making blockchain certification easy & accessible 🚀
