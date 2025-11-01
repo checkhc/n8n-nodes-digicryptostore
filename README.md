@@ -8,42 +8,66 @@
 [![CHECKHC](https://img.shields.io/badge/Powered_by-CHECKHC-orange?style=flat&logo=solana)](https://www.checkhc.net)
 [![Discord Support](https://img.shields.io/badge/Support-Discord-5865F2)](https://discord.com/channels/1324516144979382335/1429512698504151200)
 
-### 📄 **Document Certification with Permanent Blockchain Storage**
-### 🚀 **Ultra-Simplified Workflow: 2 Nodes Only**
+### 🔐 **Blockchain Certification for Digital Content**
+### 📝 **Two Powerful Nodes: DigiCryptoStore + SolMemo**
 
-**Powered by [CHECKHC](https://www.checkhc.net) - The Web3 Certification Ecosystem**
+**Powered by [CHECKHC](https://www.checkhc.net) - The Certified Human Data Layer for the AI Era**
 
-[🌐 Visit CHECKHC.net](https://www.checkhc.net) | [📦 DigiCryptoStore Platform](https://app.photocertif.com) | [💬 Discord Community](https://discord.com/channels/1324516144979382335/1429512698504151200)
+[🌐 CHECKHC.net](https://www.checkhc.net) | [📦 App Platform](https://app2.photocertif.com) | [💬 Discord Support](https://discord.com/channels/1324516144979382335/1429512698504151200)
 
 </div>
 
 ---
 
-> ⚠️ **Beta Status**: This node is in active development. Features are functional but we're continuously improving based on user feedback. Join our [Discord channel](https://discord.com/channels/1324516144979382335/1429512698504151200) for support and updates.
+> ⚠️ **Beta Status**: This package is in active development. Features are functional but we're continuously improving based on user feedback. Join our [Discord channel](https://discord.com/channels/1324516144979382335/1429512698504151200) for support and updates.
 
 ---
 
-## 🎯 What is DigiCryptoStore?
+## 🎯 What's Inside This Package?
 
-DigiCryptoStore is an n8n community node that enables **automated document certification** on the **Solana blockchain** with **secure permanent storage**.
+This n8n community package provides **two powerful nodes** for blockchain-based content certification:
 
-###  **Key Features:**
+### 📄 **1. DigiCryptoStore** - NFT Document Certification
+Permanent document certification with NFT minting on Solana blockchain. Perfect for legal documents, contracts, and archival storage.
 
+### 📝 **2. SolMemo** - Hash Timestamping + AI Verification ✨ **NEW!**
+Privacy-first blockchain timestamping with optional AI detection and C2PA authenticity. Perfect for photos, images, and confidential files.
+
+###  **Combined Key Features:**
+
+#### DigiCryptoStore Features:
 - 📄 **Document Certification** - PDF, DOCX, XLSX, and more
-- ☁️  **Flexible Storage** - Permanent (for monetization) or Erasable (GDPR compliant)
-- 🎨 **NFT Proof** - Each document gets a unique NFT on Solana
-- 💰 **Automated Payments** - CHECKHC tokens paid automatically from n8n wallet
-- 🤖 **Zero Manual Intervention** - Complete end-to-end automation
-- ⚡ **Ultra-Fast** - Complete certification in ~30-60 seconds
+- 🎨 **NFT Minting** - Each document gets a unique NFT on Solana
+- ☁️  **Permanent Storage** - Arweave decentralized storage
+- 💰 **Automated Payments** - CHECKHC tokens paid automatically
+
+#### SolMemo Features:
+- 🔐 **Privacy-First** - Hash-only mode (file never leaves your device)
+- 🤖 **AI Detection** - Optional AI analysis (human vs AI content)
+- 🏷️ **C2PA Standard** - Industry-standard authenticity metadata
+- ⚡ **Ultra-Fast** - 30 seconds for simple hash, 2 minutes with AI
+- 💸 **Low Cost** - From 1 credit (€0.08) for hash-only
+
+#### Common Features:
+- 🔒 **Blockchain Proof** - Immutable timestamping on Solana
+- 🤖 **Full Automation** - Zero manual intervention
 - 🔐 **Secure** - Private keys encrypted in n8n credentials
+- 🇪🇺 **GDPR Compliant** - Privacy by design
 
 ### **Perfect For:**
 
+#### Use DigiCryptoStore for:
 - 🏛️ Digital vaults and permanent document archiving
 - 📊 High-volume B2B document certification (100s-1000s)
 - ✅ Enterprise compliance and audit trails
-- 🔄 Automated certification pipelines
-- 🗄️ Legal document preservation with blockchain proof
+- 🗄️ Legal document preservation with NFT proof
+
+#### Use SolMemo for:
+- 📸 **Photography** - Prove your images are human-created
+- 🎨 **Digital Art** - Protect against AI copies
+- 📝 **Confidential Documents** - Hash-only (GDPR compliant)
+- 🏢 **IP Protection** - Timestamp creative work instantly
+- 🗞️ **Journalism** - Verify photo authenticity with AI + C2PA
 
 ---
 
@@ -60,9 +84,9 @@ n8n start
 ### **2. Configure Credentials**
 
 #### **Credential A: DigiCryptoStore API**
-1. Get API key from: https://app.photocertif.com
+1. Get API key from: https://app2.photocertif.com
 2. In n8n: **Credentials** → **PhotoCertif API**
-3. Enter URL: `https://app.photocertif.com` and your API key
+3. Enter URL: `https://app2.photocertif.com` and your API key
 
 #### **Credential B: Solana Wallet**
 1. In n8n: **Credentials** → **Solana API**
@@ -283,12 +307,110 @@ Each certification includes:
 
 ---
 
+## 📝 SolMemo - Privacy-First Blockchain Timestamping
+
+### **🎯 What is SolMemo?**
+
+SolMemo is a revolutionary blockchain timestamping node that combines **privacy**, **AI detection**, and **industry standards** (C2PA).
+
+**Three Certification Modes:**
+
+1. **🔐 Simple Hash (1 credit - €0.08)**
+   - SHA-256 hash timestamped on Solana
+   - File **NEVER leaves your device** (GDPR perfect)
+   - Perfect for confidential documents
+   - 30 seconds, fully automated
+
+2. **🤖 AI Strict + C2PA (30 credits - €0.90)**
+   - Hash + AI analysis (2-level detection: Human/AI)
+   - C2PA authenticity metadata (Adobe standard)
+   - Perfect for documentary photos, legal evidence
+   - 2-3 minutes processing
+
+3. **🎨 AI Art + C2PA (30 credits - €0.90)**
+   - Hash + AI analysis (5-level detection: 100% human → 100% AI)
+   - Accepts artistic post-production
+   - Perfect for digital art, creative photography
+   - 2-3 minutes processing
+
+### **⚡ Quick Comparison:**
+
+| Feature | Simple Hash | AI + C2PA |
+|---------|-------------|-----------|
+| **Privacy** | ✅ File stays local | ⚠️ File uploaded |
+| **Cost** | 💸 1 credit (€0.08) | 💰 30 credits (€0.90) |
+| **Speed** | ⚡ 30 seconds | 🔄 2-3 minutes |
+| **Use Case** | Documents, IP, Contracts | Photos, Art, Journalism |
+| **Proof** | Hash + Blockchain | Hash + AI + C2PA + Blockchain |
+
+### **🔧 SolMemo Operations:**
+
+| Operation | Description |
+|-----------|-------------|
+| `Create Memo` | Create blockchain memo with optional AI + C2PA |
+| `List Memos` | Retrieve all your blockchain timestamped files |
+
+### **📊 SolMemo Workflow Example:**
+
+```json
+{
+  "operation": "createMemo",
+  "certificationMode": "simple",  // or "ai_strict" or "ai_art"
+  "fileData": "base64...",        // or use "fileUrl"
+  "title": "My Photo",
+  "author": "John Doe",
+  "description": "Original shot 2025",
+  "iv_storageid": "optional-storage-id"
+}
+```
+
+**Output:**
+```json
+{
+  "success": true,
+  "memo": {
+    "iv_storageid": "iv_xxx...",
+    "blockchain_signature": "5xABc...",
+    "hash_sha256": "abc123...",
+    "ai_analysis": {  // Only if AI mode
+      "is_ai_generated": false,
+      "confidence": 0.95,
+      "model": "strict"
+    },
+    "c2pa_created": true,  // Only if AI mode
+    "c2pa_download_url": "https://...",
+    "verification_url": "https://app2.photocertif.com/verify/xxx"
+  }
+}
+```
+
+### **🌟 Why Choose SolMemo?**
+
+✅ **Privacy by Design** - Hash mode keeps files local  
+✅ **AI-Proof** - Detect AI-generated content automatically  
+✅ **Industry Standard** - C2PA compatible (Adobe, Microsoft, BBC)  
+✅ **Blockchain Immutable** - Solana timestamping (400ms finality)  
+✅ **Low Cost** - From €0.08 per timestamping  
+✅ **Free Tier** - 30 free credits/month for all users  
+
+### **📸 Perfect for Photographers & Artists:**
+
+> 🎨 **Protect your work in the AI era**
+> 
+> With 34 million AI images created daily, proving your work is human-made has never been more critical. SolMemo provides:
+> - Blockchain proof of creation date
+> - AI analysis confirming human authorship
+> - C2PA metadata for industry compliance
+> - All automated from n8n
+
+---
+
 ## 🔗 Links
 
-- **Website**: https://www.checkhc.net
-- **GitHub**: https://github.com/checkhc/n8n-nodes-digicryptostore
-- **npm**: https://www.npmjs.com/package/n8n-nodes-digicryptostore
-- **DigiCryptoStore**: https://app.photocertif.com
+- **🌐 Official Website**: https://www.checkhc.net
+- **📦 App Platform**: https://app2.photocertif.com
+- **📚 GitHub**: https://github.com/checkhc/n8n-nodes-digicryptostore
+- **📦 npm Package**: https://www.npmjs.com/package/n8n-nodes-digicryptostore
 - **Discord Support** (Primary): https://discord.com/channels/1324516144979382335/1429512698504151200
   - Real-time community support
   - Direct access to developers
@@ -303,41 +425,91 @@ MIT © [CHECKHC](https://checkhc.net)
 
 ---
 
-## 🏢 About CHECKHC
+## 🏢 About CHECKHC - The Certified Human Data Layer
 
-**[CHECKHC](https://www.checkhc.net)** is a pioneering Web3 ecosystem for digital content certification and authentication.
+**[CHECKHC](https://www.checkhc.net)** is building the **Certified Human Data Layer for the AI Era**.
 
-### **Our Solutions:**
+### **🎯 Our Mission:**
 
-- 📄 **[DigiCryptoStore](https://app.photocertif.com)** - Document Certification with Secure Blockchain Storage
-- 🎨 **[PhotoCertif](https://app.photocertif.com)** - Image & Art Certification with AI Authentication
-- 🪙 **CHECKHC Token** - Native utility token on Solana blockchain
-- 🔗 **Blockchain Integration** - Solana + Secure Decentralized Storage
-- 🤖 **AI-Powered** - Advanced detection for authenticity verification
+In a world flooding with AI-generated content (34M images/day), we provide **forensic-grade certification** to prove human authorship and prevent AI training collapse.
 
-### **Why Choose CHECKHC?**
+### **🛠️ Our Solutions:**
 
-- ✅ **Flexible Storage** - Permanent or Erasable (GDPR-compliant options)
-- ✅ **Blockchain Proof** - Immutable NFT certificates on Solana
-- ✅ **Full Automation** - Complete end-to-end automation with n8n
-- ✅ **Enterprise Ready** - High-volume B2B document workflows
-- ✅ **Ultra-Fast** - ~30-60 seconds per certification
-- ✅ **Open Source** - Transparent & community-driven
+#### For Individuals & Creators:
+- 📝 **[SolMemo](https://app2.photocertif.com)** - Privacy-first hash timestamping (from €0.08)
+- 🎨 **Image Certification** - AI detection + C2PA authenticity
+- 📸 **Free Tier** - 30 credits/month for all users
+- 🪙 **$CHECKHC Token** - Earn by certifying, spend on services
 
-### **🚀 Get Started:**
+#### For Enterprises & B2B:
+- 📄 **DigiCryptoStore** - NFT document certification with permanent storage
+- 🤖 **n8n Automation** - This package! Full workflow automation
+- 🏢 **API Access** - Bulk certification, custom integration
+- 💼 **White-Label** - Private blockchain certification platform
 
-1. **Explore:** Visit [www.checkhc.net](https://www.checkhc.net)
-2. **Try it:** Sign up at [app.photocertif.com](https://app.photocertif.com)
-3. **Get CHECKHC Tokens:** [Buy on Jupiter](https://jup.ag/swap/SOL-CHECKHC)
-4. **Automate:** Install this n8n node for B2B workflows
-5. **Join Community:** [Discord Channel](https://discord.com/channels/1324516144979382335/1429512698504151200)
+#### For AI Companies:
+- 🧬 **Certified Training Data** - Human-verified datasets
+- ✅ **EU AI Act Compliant** - Regulation-ready from day one
+- 🔬 **Forensic Proof** - Prevent AI-to-AI training collapse
+- 📊 **Dataset Marketplace** - Access to certified human data
 
-### **💼 Enterprise Solutions:**
+### **🌟 Why CHECKHC Leads the Market:**
 
-Looking for custom integration or high-volume licensing?
+**Technical Edge:**
+- 🔐 **Triple Validation** - Hash + Blockchain + AI + C2PA
+- 🔒 **Privacy by Design** - GDPR-compliant hash-only mode
+- ⚡ **Solana Speed** - 400ms blockchain finality
+- 💸 **Low Cost** - 200x cheaper than Ethereum alternatives
+
+**Ecosystem Advantage:**
+- 🪙 **Token Utility** - $CHECKHC powers entire ecosystem
+- 🔄 **Two-Sided Marketplace** - Creators supply, AI companies demand
+- 📈 **Network Effects** - More users = more value = more adoption
+- 🌐 **Open Standards** - C2PA, Solana, decentralized storage
+
+**First-Mover Lead:**
+- ⏰ **18-24 months ahead** - Competitors just starting
+- 🎯 **Market Timing** - EU AI Act enforcement 2025
+- 💰 **$22B TAM** - Growing 30%/year
+- 🚀 **Proven Tech** - Already deployed, already working
+
+### **📈 Market Opportunity:**
+
+```
+AI Training Data Market:        $10B/year (growing 50%/year)
+Content Authenticity Market:    $15B/year (2027 projection)
+Digital Notarization Market:    $3B/year
+Creator Tools Market:           $5B/year
+──────────────────────────────────────────────────────
+Total Addressable Market:       $22B/year (2027)
+CHECKHC Target (Year 3):        10-20% market share
+```
+
+**Our Vision:** Become the **industry standard** for human content certification, like DocuSign is for e-signatures.
+
+### **🚀 Get Started Today:**
+
+#### For Creators:
+1. **Try for Free:** Get 30 credits/month → [app2.photocertif.com](https://app2.photocertif.com)
+2. **Install n8n:** Automate your workflow with this package
+3. **Join Community:** [Discord](https://discord.com/channels/1324516144979382335/1429512698504151200)
+
+#### For Enterprises:
+1. **Book Demo:** See bulk certification in action
+2. **Pilot Program:** Test with your documents/images
+3. **Custom Integration:** API, white-label, or n8n automation
 
 📧 Contact: **contact@checkhc.net**  
-🌐 Website: **[www.checkhc.net](https://www.checkhc.net)**
+🌐 **Official Website: [www.checkhc.net](https://www.checkhc.net)** ⭐  
+💼 Platform: **[app2.photocertif.com](https://app2.photocertif.com)**  
+
+### **🪙 Get $CHECKHC Tokens:**
+
+- **Buy:** [Jupiter Aggregator](https://jup.ag/swap/SOL-CHECKHC)  
+- **Earn:** Certify content and earn tokens  
+- **Stake:** Coming soon - Governance + rewards  
+
+**Token Address:** `5tpkrCVVh6tjjve4TuyP8MXBwURufgAnaboaLwo49uau`
 
 ---
 
