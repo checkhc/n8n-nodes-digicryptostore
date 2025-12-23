@@ -8,8 +8,7 @@
 [![CHECKHC](https://img.shields.io/badge/Powered_by-CHECKHC-orange?style=flat&logo=solana)](https://www.checkhc.net)
 [![Discord Support](https://img.shields.io/badge/Support-Discord-5865F2)](https://discord.com/channels/1324516144979382335/1429512698504151200)
 
-### 🔐 **Blockchain Certification for Digital Content**
-### 📝 **Two Powerful Nodes: DigiCryptoStore + SolMemo**
+### 🔐 **NFT Document Certification on Solana Blockchain**
 
 **Powered by [CHECKHC](https://www.checkhc.net) - The Certified Human Data Layer for the AI Era**
 
@@ -25,49 +24,28 @@
 
 ## 🎯 What's Inside This Package?
 
-This n8n community package provides **two powerful nodes** for blockchain-based content certification:
+This n8n community package provides **DigiCryptoStore** - NFT document certification with permanent storage on Solana blockchain.
 
-### 📄 **1. DigiCryptoStore** - NFT Document Certification
-Permanent document certification with NFT minting on Solana blockchain. Perfect for legal documents, contracts, and archival storage.
+### **Key Features:**
 
-### 📝 **2. SolMemo** - Hash Timestamping + AI Verification ✨ **NEW!**
-Privacy-first blockchain timestamping with optional AI detection and C2PA authenticity. Perfect for photos, images, and confidential files.
-
-###  **Combined Key Features:**
-
-#### DigiCryptoStore Features:
 - 📄 **Document Certification** - PDF, DOCX, XLSX, and more
 - 🎨 **NFT Minting** - Each document gets a unique NFT on Solana
 - ☁️  **Permanent Storage** - Arweave decentralized storage
 - 💰 **Automated Payments** - CHECKHC tokens paid automatically
-
-#### SolMemo Features:
-- 🔐 **Privacy-First** - Hash-only mode (file never leaves your device)
-- 🤖 **AI Detection** - Optional AI analysis (human vs AI content)
-- 🏷️ **C2PA Standard** - Industry-standard authenticity metadata
-- ⚡ **Ultra-Fast** - 30 seconds for simple hash, 2 minutes with AI
-- 💸 **Low Cost** - From 1 credit (€0.08) for hash-only
-
-#### Common Features:
-- 🔒 **Blockchain Proof** - Immutable timestamping on Solana
+-  **Blockchain Proof** - Immutable timestamping on Solana
 - 🤖 **Full Automation** - Zero manual intervention
 - 🔐 **Secure** - Private keys encrypted in n8n credentials
 - 🇪🇺 **GDPR Compliant** - Privacy by design
 
 ### **Perfect For:**
 
-#### Use DigiCryptoStore for:
 - 🏛️ Digital vaults and permanent document archiving
 - 📊 High-volume B2B document certification (100s-1000s)
 - ✅ Enterprise compliance and audit trails
 - 🗄️ Legal document preservation with NFT proof
 
-#### Use SolMemo for:
-- 📸 **Photography** - Prove your images are human-created
-- 🎨 **Digital Art** - Protect against AI copies
-- 📝 **Confidential Documents** - Hash-only (GDPR compliant)
-- 🏢 **IP Protection** - Timestamp creative work instantly
-- 🗞️ **Journalism** - Verify photo authenticity with AI + C2PA
+> 📸 **Looking for image/photo certification with AI detection?**  
+> Check out [n8n-nodes-proofofauthenticity](https://github.com/checkhc/n8n-nodes-ProofofAuthenticity) - Privacy-first blockchain timestamping with AI + C2PA.
 
 ---
 
@@ -87,11 +65,6 @@ n8n start
 1. Get API key from: https://app2.photocertif.com
 2. In n8n: **Credentials** → **PhotoCertif API**
 3. Enter URL: `https://app2.photocertif.com` and your API key
-
-#### **Credential B: Solana Wallet**
-1. In n8n: **Credentials** → **Solana API**
-2. Enter your wallet's private key (base58 format)
-3. Recommended: Use a dedicated wallet with limited funds
 
 ### **3. Import Workflow**
 
@@ -134,27 +107,7 @@ n8n start
 
 ---
 
-## 💰 Pricing
-
-### **Per Certification:**
-
-**CHECKHC Payment** (paid to DigiCryptoStore):
-- ~10 USD per document (paid in CHECKHC tokens)
-- Current rate: ~245 CHECKHC per certification
-
-**Blockchain Fees** (paid in SOL from your wallet):
-- Secure storage: ~0.02-0.05 SOL
-- NFT minting: ~0.01 SOL
-- **Total**: ~0.03-0.06 SOL per document
-
-### **Wallet Requirements:**
-
-- **SOL**: 0.1-0.5 SOL for multiple certifications
-- **CHECKHC**: System auto-swaps SOL→CHECKHC when needed
-
----
-
-## 📚 Operations
+##  Operations
 
 The node provides these operations:
 
@@ -307,101 +260,11 @@ Each certification includes:
 
 ---
 
-## 📝 SolMemo - Privacy-First Blockchain Timestamping
+## � Looking for Image/Photo Certification?
 
-### **🎯 What is SolMemo?**
+For privacy-first blockchain timestamping with AI detection and C2PA authenticity, use our dedicated package:
 
-SolMemo is a revolutionary blockchain timestamping node that combines **privacy**, **AI detection**, and **industry standards** (C2PA).
-
-**Three Certification Modes:**
-
-1. **🔐 Simple Hash (1 credit - €0.08)**
-   - SHA-256 hash timestamped on Solana
-   - File **NEVER leaves your device** (GDPR perfect)
-   - Perfect for confidential documents
-   - 30 seconds, fully automated
-
-2. **🤖 AI Strict + C2PA (30 credits - €0.90)**
-   - Hash + AI analysis (2-level detection: Human/AI)
-   - C2PA authenticity metadata (Adobe standard)
-   - Perfect for documentary photos, legal evidence
-   - 2-3 minutes processing
-
-3. **🎨 AI Art + C2PA (30 credits - €0.90)**
-   - Hash + AI analysis (5-level detection: 100% human → 100% AI)
-   - Accepts artistic post-production
-   - Perfect for digital art, creative photography
-   - 2-3 minutes processing
-
-### **⚡ Quick Comparison:**
-
-| Feature | Simple Hash | AI + C2PA |
-|---------|-------------|-----------|
-| **Privacy** | ✅ File stays local | ⚠️ File uploaded |
-| **Cost** | 💸 1 credit (€0.08) | 💰 30 credits (€0.90) |
-| **Speed** | ⚡ 30 seconds | 🔄 2-3 minutes |
-| **Use Case** | Documents, IP, Contracts | Photos, Art, Journalism |
-| **Proof** | Hash + Blockchain | Hash + AI + C2PA + Blockchain |
-
-### **🔧 SolMemo Operations:**
-
-| Operation | Description |
-|-----------|-------------|
-| `Create Memo` | Create blockchain memo with optional AI + C2PA |
-| `List Memos` | Retrieve all your blockchain timestamped files |
-
-### **📊 SolMemo Workflow Example:**
-
-```json
-{
-  "operation": "createMemo",
-  "certificationMode": "simple",  // or "ai_strict" or "ai_art"
-  "fileData": "base64...",        // or use "fileUrl"
-  "title": "My Photo",
-  "author": "John Doe",
-  "description": "Original shot 2025",
-  "iv_storageid": "optional-storage-id"
-}
-```
-
-**Output:**
-```json
-{
-  "success": true,
-  "memo": {
-    "iv_storageid": "iv_xxx...",
-    "blockchain_signature": "5xABc...",
-    "hash_sha256": "abc123...",
-    "ai_analysis": {  // Only if AI mode
-      "is_ai_generated": false,
-      "confidence": 0.95,
-      "model": "strict"
-    },
-    "c2pa_created": true,  // Only if AI mode
-    "c2pa_download_url": "https://...",
-    "verification_url": "https://app2.photocertif.com/verify/xxx"
-  }
-}
-```
-
-### **🌟 Why Choose SolMemo?**
-
-✅ **Privacy by Design** - Hash mode keeps files local  
-✅ **AI-Proof** - Detect AI-generated content automatically  
-✅ **Industry Standard** - C2PA compatible (Adobe, Microsoft, BBC)  
-✅ **Blockchain Immutable** - Solana timestamping (400ms finality)  
-✅ **Low Cost** - From €0.08 per timestamping  
-✅ **Free Tier** - 30 free credits/month for all users  
-
-### **📸 Perfect for Photographers & Artists:**
-
-> 🎨 **Protect your work in the AI era**
-> 
-> With 34 million AI images created daily, proving your work is human-made has never been more critical. SolMemo provides:
-> - Blockchain proof of creation date
-> - AI analysis confirming human authorship
-> - C2PA metadata for industry compliance
-> - All automated from n8n
+👉 **[n8n-nodes-proofofauthenticity](https://github.com/checkhc/n8n-nodes-ProofofAuthenticity)**
 
 ---
 
@@ -436,9 +299,8 @@ In a world flooding with AI-generated content (34M images/day), we provide **for
 ### **🛠️ Our Solutions:**
 
 #### For Individuals & Creators:
-- 📝 **[SolMemo](https://app2.photocertif.com)** - Privacy-first hash timestamping (from €0.08)
+- � **[ProofOfAuthenticity](https://github.com/checkhc/n8n-nodes-ProofofAuthenticity)** - Privacy-first hash timestamping with AI + C2PA
 - 🎨 **Image Certification** - AI detection + C2PA authenticity
-- 📸 **Free Tier** - 30 credits/month for all users
 - 🪙 **$CHECKHC Token** - Earn by certifying, spend on services
 
 #### For Enterprises & B2B:
@@ -490,7 +352,7 @@ CHECKHC Target (Year 3):        10-20% market share
 ### **🚀 Get Started Today:**
 
 #### For Creators:
-1. **Try for Free:** Get 30 credits/month → [app2.photocertif.com](https://app2.photocertif.com)
+1. **Try for Free:** → [app2.photocertif.com](https://app2.photocertif.com)
 2. **Install n8n:** Automate your workflow with this package
 3. **Join Community:** [Discord](https://discord.com/channels/1324516144979382335/1429512698504151200)
 

@@ -8,6 +8,8 @@ import {
 
 import axios from 'axios';
 import * as https from 'https';
+import { Connection, Keypair, Transaction } from '@solana/web3.js';
+import bs58 from 'bs58';
 
 // Security and Performance Constants
 const REQUEST_TIMEOUT = 30000;          // 30 seconds for API requests
@@ -120,10 +122,46 @@ export class DigiCryptoStore implements INodeType {
 				noDataExpression: true,
 				options: [
 					{
-						name: 'NFT Documents store',
+						name: 'Upload',
+						value: 'upload',
+						description: 'Upload content to PhotoCertif',
+						action: 'Upload content',
+					},
+					{
+						name: 'Submit Certification',
+						value: 'certify',
+						description: 'Submit certification form (requires user to complete payment)',
+						action: 'Submit certification',
+					},
+					{
+						name: 'Get Status',
+						value: 'getStatus',
+						description: 'Get certification status',
+						action: 'Get status',
+					},
+					{
+						name: 'Wait for Certification',
+						value: 'waitForCertification',
+						description: 'Poll status until certified or timeout',
+						action: 'Wait for certification',
+					},
+					{
+						name: 'Download',
+						value: 'download',
+						description: 'Download certified content',
+						action: 'Download content',
+					},
+					{
+						name: 'Get Pricing',
+						value: 'getPricing',
+						description: 'Get CHECKHC pricing for certification service',
+						action: 'Get pricing',
+					},
+					{
+						name: 'B2B Certify Full',
 						value: 'b2bCertifyFull',
-						description: 'Complete B2B certification (upload + payment + Arweave + NFT)',
-						action: 'NFT Documents store',
+						description: 'Complete B2B certification (payment + Arweave + NFT)',
+						action: 'B2B Certify Full',
 					},
 					{
 						name: 'List NFTs',
@@ -132,11 +170,11 @@ export class DigiCryptoStore implements INodeType {
 						action: 'List NFTs',
 					},
 				],
-				default: 'b2bCertifyFull',
+				default: 'upload',
 			},
 
 			// ============================================
-			// B2B CERTIFY FULL PARAMETERS
+			// UPLOAD PARAMETERS
 			// ============================================
 			{
 				displayName: 'Input Type',
@@ -144,7 +182,7 @@ export class DigiCryptoStore implements INodeType {
 				type: 'options',
 				displayOptions: {
 					show: {
-						operation: ['b2bCertifyFull'],
+						operation: ['upload'],
 					},
 				},
 				options: [
@@ -168,7 +206,7 @@ export class DigiCryptoStore implements INodeType {
 				type: 'string',
 				displayOptions: {
 					show: {
-						operation: ['b2bCertifyFull'],
+						operation: ['upload'],
 						inputType: ['url'],
 					},
 				},
@@ -183,7 +221,7 @@ export class DigiCryptoStore implements INodeType {
 				type: 'string',
 				displayOptions: {
 					show: {
-						operation: ['b2bCertifyFull'],
+						operation: ['upload'],
 						inputType: ['base64'],
 					},
 				},
@@ -193,12 +231,39 @@ export class DigiCryptoStore implements INodeType {
 				required: true,
 			},
 			{
+				displayName: 'Title',
+				name: 'title',
+				type: 'string',
+				displayOptions: {
+					show: {
+						operation: ['upload'],
+					},
+				},
+				default: '',
+				placeholder: 'Document Title',
+				description: 'Title for the uploaded content',
+				required: true,
+			},
+			{
+				displayName: 'Description',
+				name: 'description',
+				type: 'string',
+				displayOptions: {
+					show: {
+						operation: ['upload'],
+					},
+				},
+				default: '',
+				placeholder: 'Optional description',
+				description: 'Description of the content (optional)',
+			},
+			{
 				displayName: 'File Extension',
 				name: 'fileExtension',
 				type: 'string',
 				displayOptions: {
 					show: {
-						operation: ['b2bCertifyFull'],
+						operation: ['upload'],
 						inputType: ['url'],
 					},
 				},
@@ -207,7 +272,294 @@ export class DigiCryptoStore implements INodeType {
 				description: 'File extension (required for URL uploads as they often lack extension)',
 			},
 
+			// ============================================
+			// GET PRICING PARAMETERS
+			// ============================================
+			{
+				displayName: 'File Size (Bytes)',
+				name: 'fileSize',
+				type: 'number',
+				displayOptions: {
+					show: {
+						operation: ['getPricing'],
+					},
+				},
+				default: 0,
+				placeholder: '500000',
+				description: 'Processed file size in bytes (optional, for Irys cost calculation)',
+			},
+			{
+				displayName: 'Original File Size (Bytes)',
+				name: 'originalSize',
+				type: 'number',
+				displayOptions: {
+					show: {
+						operation: ['getPricing'],
+					},
+				},
+				default: 0,
+				placeholder: '2000000',
+				description: 'Original file size in bytes (optional, for Irys cost calculation)',
+			},
 
+			// ============================================
+			// CERTIFY PARAMETERS (15 fields total!)
+			// ============================================
+			{
+				displayName: 'Storage ID',
+				name: 'storageId',
+				type: 'string',
+				displayOptions: {
+					show: {
+						operation: ['certify', 'getStatus', 'download', 'waitForCertification'],
+					},
+				},
+				default: '',
+				placeholder: 'iv_xxxxxxxxxxxxx',
+				description: 'The storage ID returned from upload',
+				required: true,
+			},
+
+			// Required certification fields
+			{
+				displayName: 'Certification Name',
+				name: 'name',
+				type: 'string',
+				displayOptions: {
+					show: {
+						operation: ['certify'],
+					},
+				},
+				default: '',
+				placeholder: 'Contract2025',
+				description: 'Name for the certification (alphanumeric only)',
+				required: true,
+			},
+			{
+				displayName: 'Symbol',
+				name: 'cert_symbol',
+				type: 'string',
+				displayOptions: {
+					show: {
+						operation: ['certify'],
+					},
+				},
+				default: '',
+				placeholder: 'CNTR',
+				description: 'Symbol for the NFT (4 uppercase letters max)',
+				required: true,
+			},
+			{
+				displayName: 'Description',
+				name: 'cert_description',
+				type: 'string',
+				typeOptions: {
+					rows: 3,
+				},
+				displayOptions: {
+					show: {
+						operation: ['certify'],
+					},
+				},
+				default: '',
+				placeholder: 'Description of the certification',
+				description: 'Detailed description (alphanumeric + spaces)',
+				required: true,
+			},
+			{
+				displayName: 'Owner',
+				name: 'cert_prop',
+				type: 'string',
+				displayOptions: {
+					show: {
+						operation: ['certify'],
+					},
+				},
+				default: '',
+				placeholder: 'Company ABC Inc',
+				description: 'Owner name (20 characters max, alphanumeric + spaces)',
+				required: true,
+			},
+
+			// Optional certification fields
+			{
+				displayName: 'Collection Mint Address',
+				name: 'collection_mint_address',
+				type: 'string',
+				displayOptions: {
+					show: {
+						operation: ['certify'],
+					},
+				},
+				default: '',
+				placeholder: 'BMCVo8ehcpR2E92d2RUqyybQ7fMeDUWpMxNbaAsQqV8i',
+				description: 'NFT Collection address (optional)',
+			},
+
+			// External Links section
+			{
+				displayName: 'External Links',
+				name: 'externalLinksNotice',
+				type: 'notice',
+				displayOptions: {
+					show: {
+						operation: ['certify'],
+					},
+				},
+				default: '',
+				// @ts-ignore
+				text: 'All external links are optional and will be included in NFT metadata',
+			},
+			{
+				displayName: 'Website URL',
+				name: 'external_url',
+				type: 'string',
+				displayOptions: {
+					show: {
+						operation: ['certify'],
+					},
+				},
+				default: '',
+				placeholder: 'https://your-website.com',
+				description: 'Website or project URL',
+			},
+			{
+				displayName: 'Twitter/X URL',
+				name: 'twitter_url',
+				type: 'string',
+				displayOptions: {
+					show: {
+						operation: ['certify'],
+					},
+				},
+				default: '',
+				placeholder: 'https://x.com/username',
+				description: 'Twitter/X profile URL',
+			},
+			{
+				displayName: 'Discord URL',
+				name: 'discord_url',
+				type: 'string',
+				displayOptions: {
+					show: {
+						operation: ['certify'],
+					},
+				},
+				default: '',
+				placeholder: 'https://discord.gg/invite',
+				description: 'Discord server invite URL',
+			},
+			{
+				displayName: 'Instagram URL',
+				name: 'instagram_url',
+				type: 'string',
+				displayOptions: {
+					show: {
+						operation: ['certify'],
+					},
+				},
+				default: '',
+				placeholder: 'https://instagram.com/username',
+				description: 'Instagram profile URL',
+			},
+			{
+				displayName: 'Telegram URL',
+				name: 'telegram_url',
+				type: 'string',
+				displayOptions: {
+					show: {
+						operation: ['certify'],
+					},
+				},
+				default: '',
+				placeholder: 'https://t.me/channel',
+				description: 'Telegram channel URL',
+			},
+			{
+				displayName: 'Medium URL',
+				name: 'medium_url',
+				type: 'string',
+				displayOptions: {
+					show: {
+						operation: ['certify'],
+					},
+				},
+				default: '',
+				placeholder: 'https://medium.com/@username',
+				description: 'Medium blog URL',
+			},
+			{
+				displayName: 'Wiki URL',
+				name: 'wiki_url',
+				type: 'string',
+				displayOptions: {
+					show: {
+						operation: ['certify'],
+					},
+				},
+				default: '',
+				placeholder: 'https://wiki.example.com',
+				description: 'Wiki or documentation URL',
+			},
+			{
+				displayName: 'YouTube URL',
+				name: 'youtube_url',
+				type: 'string',
+				displayOptions: {
+					show: {
+						operation: ['certify'],
+					},
+				},
+				default: '',
+				placeholder: 'https://youtube.com/@channel',
+				description: 'YouTube channel URL',
+			},
+
+			// ============================================
+			// WAIT FOR CERTIFICATION PARAMETERS
+			// ============================================
+			{
+				displayName: 'Polling Interval (seconds)',
+				name: 'pollingInterval',
+				type: 'number',
+				displayOptions: {
+					show: {
+						operation: ['waitForCertification'],
+					},
+				},
+				default: 300,
+				description: 'Seconds between status checks (default: 5 minutes)',
+			},
+			{
+				displayName: 'Max Wait Time (seconds)',
+				name: 'maxWaitTime',
+				type: 'number',
+				displayOptions: {
+					show: {
+						operation: ['waitForCertification'],
+					},
+				},
+				default: 86400,
+				description: 'Maximum seconds to wait before timeout (default: 24 hours)',
+			},
+
+			// ============================================
+			// B2B CERTIFY FULL PARAMETERS
+			// ============================================
+			{
+				displayName: 'Storage ID',
+				name: 'storageIdB2b',
+				type: 'string',
+				displayOptions: {
+					show: {
+						operation: ['b2bCertifyFull'],
+					},
+				},
+				default: '',
+				placeholder: 'iv_xxxxxxxxxxxxx',
+				description: 'The storage ID returned from upload',
+				required: true,
+			},
 			{
 				displayName: 'NFT Name',
 				name: 'nftName',
@@ -367,6 +719,32 @@ export class DigiCryptoStore implements INodeType {
 				default: '',
 				placeholder: 'https://youtube.com/@channel',
 				description: 'YouTube channel URL (optional)',
+			},
+			{
+				displayName: 'Collection Mint Address',
+				name: 'collectionMintAddress',
+				type: 'string',
+				displayOptions: {
+					show: {
+						operation: ['b2bCertifyFull'],
+					},
+				},
+				default: '',
+				placeholder: 'Collection Mint Address (optional)',
+				description: 'Solana collection mint address (optional)',
+			},
+			{
+				displayName: 'Affiliate Code',
+				name: 'affiliateCode',
+				type: 'string',
+				displayOptions: {
+					show: {
+						operation: ['b2bCertifyFull'],
+					},
+				},
+				default: '',
+				placeholder: 'Affiliate code (optional)',
+				description: 'Affiliate tracking code (optional)',
 			},
 
 			// ============================================
@@ -710,95 +1088,35 @@ export class DigiCryptoStore implements INodeType {
 				}
 
 				// ============================================
-				// B2B CERTIFY FULL OPERATION
+				// B2B CERTIFY FULL OPERATION - PSAN COMPLIANT
 				// ============================================
+				// This operation now uses a 2-step process where:
+				// 1. Server prepares unsigned transactions
+				// 2. n8n signs transactions locally (PSAN compliant)
+				// 3. Server submits signed transactions
 				else if (operation === 'b2bCertifyFull') {
-					// STEP 1: Upload file first to get storage_id
-					const inputType = this.getNodeParameter('inputType', i, 'url') as string;
-					const nftName = this.getNodeParameter('nftName', i) as string;
-					const nftDescription = this.getNodeParameter('nftDescription', i, '') as string;
-					
-					let fileData: string;
-					let fileExtension: string = '';
-
-					if (inputType === 'url') {
-						// Download file from URL and convert to base64
-						const fileUrl = this.getNodeParameter('fileUrl', i) as string;
-						fileExtension = this.getNodeParameter('fileExtension', i, 'pdf') as string;
-						
-						// SECURITY: Validate URL
-						try {
-							validateUrl(fileUrl);
-						} catch (error: any) {
-							throw new NodeOperationError(
-								this.getNode(),
-								`Invalid URL: ${error.message}`,
-								{ itemIndex: i },
-							);
-						}
-
-						// Download file
-						const fileResponse = await axios.get(fileUrl, {
-							timeout: DOWNLOAD_TIMEOUT,
-							responseType: 'arraybuffer',
-							maxContentLength: MAX_FILE_SIZE,
-							maxBodyLength: MAX_FILE_SIZE,
-							headers: {
-								'User-Agent': 'n8n-digicryptostore/1.0',
-							},
-						});
-
-						// Detect content type from response headers or URL extension
-						const contentType = fileResponse.headers['content-type'] || 'application/octet-stream';
-						const base64Data = Buffer.from(fileResponse.data).toString('base64');
-
-						// Add data URI prefix
-						fileData = `data:${contentType};base64,${base64Data}`;
-					} else {
-						fileData = this.getNodeParameter('fileData', i) as string;
-					}
-
-					// Prepare upload request body
-					const uploadRequestBody: any = {
-						file: fileData,
-						title: nftName,
-						description: nftDescription,
-					};
-
-					// Add file_extension if provided (for URL uploads)
-					if (fileExtension) {
-						uploadRequestBody.file_extension = fileExtension;
-					}
-
-					const uploadResponse = await axios.post(
-						`${baseUrl}${endpoint}/upload/iv_route`,
-						uploadRequestBody,
-						{
-							timeout: DOWNLOAD_TIMEOUT,
-							headers: {
-								'Authorization': `Bearer ${apiKey}`,
-								'Content-Type': 'application/json',
-							},
-							...getAxiosConfig(baseUrl),
-						},
-					);
-
-					if (!uploadResponse.data || !uploadResponse.data.success) {
-						throw new NodeOperationError(
-							this.getNode(),
-							`Upload failed: ${uploadResponse.data?.message || 'Unknown error'}`,
-						);
-					}
-
-					const storageId = uploadResponse.data.data.iv_storageid;
-					console.log('[n8n DOCS] File uploaded, storage ID:', storageId);
-
-					// STEP 2: Get Solana credentials for certification
+					const storageId = this.getNodeParameter('storageIdB2b', i) as string;
+			
+					// Get Solana private key from credential
 					const solanaCredentials = await this.getCredentials('solanaApi', i);
 					const userPrivateKey = solanaCredentials.privateKey as string;
-		
-					// STEP 3: Get certification metadata
+					
+					// Derive public key from private key (LOCAL operation, secure)
+					let userKeypair: Keypair;
+					try {
+						const secretKey = bs58.decode(userPrivateKey);
+						userKeypair = Keypair.fromSecretKey(secretKey);
+					} catch (error: any) {
+						throw new NodeOperationError(
+							this.getNode(),
+							`Invalid private key format: ${error.message}`,
+						);
+					}
+					const userPublicKey = userKeypair.publicKey.toBase58();
+			
+					const nftName = this.getNodeParameter('nftName', i) as string;
 					const nftSymbol = this.getNodeParameter('nftSymbol', i) as string;
+					const nftDescription = this.getNodeParameter('nftDescription', i) as string;
 					const ownerName = this.getNodeParameter('ownerName', i) as string;
 					const externalUrl = this.getNodeParameter('externalUrl', i, '') as string;
 					const twitterUrl = this.getNodeParameter('twitterUrl', i, '') as string;
@@ -808,11 +1126,17 @@ export class DigiCryptoStore implements INodeType {
 					const mediumUrl = this.getNodeParameter('mediumUrl', i, '') as string;
 					const wikiUrl = this.getNodeParameter('wikiUrl', i, '') as string;
 					const youtubeUrl = this.getNodeParameter('youtubeUrl', i, '') as string;
+					const collectionMintAddress = this.getNodeParameter('collectionMintAddress', i, '') as string;
+					const affiliateCode = this.getNodeParameter('affiliateCode', i, '') as string;
 
-					// STEP 4: Send certification request (server generates collection_mint_address and affiliate_code)
-					const requestBody = {
+					// ============================================
+					// STEP 1: PREPARE TRANSACTIONS (NO PRIVATE KEY SENT)
+					// ============================================
+					console.log('[n8n DOCS] Step 1: Preparing transactions (sending PUBLIC key only)...');
+					
+					const prepareRequestBody = {
 						storage_id: storageId,
-						user_private_key: userPrivateKey,
+						user_public_key: userPublicKey, // ⚠️ PUBLIC key only, NOT private key
 						cert_data: {
 							name: nftName,
 							cert_symbol: nftSymbol,
@@ -827,13 +1151,15 @@ export class DigiCryptoStore implements INodeType {
 							wiki_url: wikiUrl,
 							youtube_url: youtubeUrl,
 						},
+						collection_mint_address: collectionMintAddress,
+						affiliate_code: affiliateCode,
 					};
 
-					const response = await axios.post(
-						`${baseUrl}${endpoint}/b2b-certify-full`,
-						requestBody,
+					const prepareResponse = await axios.post(
+						`${baseUrl}${endpoint}/b2b-prepare-transactions`,
+						prepareRequestBody,
 						{
-							timeout: 120000, // 2 minutes timeout
+							timeout: 120000, // 2 minutes for preparation
 							headers: {
 								'Authorization': `Bearer ${apiKey}`,
 								'Content-Type': 'application/json',
@@ -842,7 +1168,114 @@ export class DigiCryptoStore implements INodeType {
 						},
 					);
 
-					responseData = response.data;
+					if (!prepareResponse.data || !prepareResponse.data.success) {
+						throw new NodeOperationError(
+							this.getNode(),
+							`Transaction preparation failed: ${prepareResponse.data?.message || 'Unknown error'}`,
+						);
+					}
+
+					const prepareData = prepareResponse.data.data;
+					console.log('[n8n DOCS] ✅ Transactions prepared successfully');
+					console.log('[n8n DOCS] Storage ID:', prepareData.storage_id);
+					console.log('[n8n DOCS] Required signatures:', prepareData.next_steps.required_signatures);
+
+					// ============================================
+					// STEP 2: SIGN TRANSACTIONS LOCALLY (SECURE)
+					// ============================================
+					console.log('[n8n DOCS] Step 2: Signing transactions LOCALLY with private key...');
+					
+					const signedTransactions: any = {};
+
+					// Sign swap transaction (if needed)
+					if (prepareData.transactions.swap) {
+						console.log('[n8n DOCS] Signing swap transaction...');
+						try {
+							const swapTxBuffer = Buffer.from(prepareData.transactions.swap, 'base64');
+							const swapTx = Transaction.from(swapTxBuffer);
+							swapTx.sign(userKeypair);
+							signedTransactions.swap = swapTx.serialize().toString('base64');
+							console.log('[n8n DOCS] ✅ Swap transaction signed');
+						} catch (error: any) {
+							throw new NodeOperationError(
+								this.getNode(),
+								`Failed to sign swap transaction: ${error.message}`,
+							);
+						}
+					}
+
+					// Sign main payment transaction (always required)
+					console.log('[n8n DOCS] Signing main payment transaction...');
+					try {
+						const mainTxBuffer = Buffer.from(prepareData.transactions.main_payment, 'base64');
+						const mainTx = Transaction.from(mainTxBuffer);
+						mainTx.sign(userKeypair);
+						signedTransactions.main_payment = mainTx.serialize().toString('base64');
+						console.log('[n8n DOCS] ✅ Main payment transaction signed');
+					} catch (error: any) {
+						throw new NodeOperationError(
+							this.getNode(),
+							`Failed to sign main payment transaction: ${error.message}`,
+						);
+					}
+
+					// Sign affiliate payment transaction (if applicable)
+					if (prepareData.transactions.affiliate_payment) {
+						console.log('[n8n DOCS] Signing affiliate payment transaction...');
+						try {
+							const affiliateTxBuffer = Buffer.from(prepareData.transactions.affiliate_payment, 'base64');
+							const affiliateTx = Transaction.from(affiliateTxBuffer);
+							affiliateTx.sign(userKeypair);
+							signedTransactions.affiliate_payment = affiliateTx.serialize().toString('base64');
+							console.log('[n8n DOCS] ✅ Affiliate payment transaction signed');
+						} catch (error: any) {
+							throw new NodeOperationError(
+								this.getNode(),
+								`Failed to sign affiliate payment transaction: ${error.message}`,
+							);
+						}
+					}
+
+					console.log('[n8n DOCS] ✅ All transactions signed locally');
+
+					// ============================================
+					// STEP 3: SUBMIT SIGNED TRANSACTIONS
+					// ============================================
+					console.log('[n8n DOCS] Step 3: Submitting signed transactions to server...');
+					console.log('[n8n DOCS] ⚠️  Note: Private key is ONLY used for Irys uploads and NFT minting (cannot be avoided)');
+					
+					const submitRequestBody = {
+						storage_id: prepareData.storage_id,
+						user_public_key: userPublicKey,
+						user_private_key: userPrivateKey, // ⚠️ Only for Irys + NFT (unavoidable)
+						signed_transactions: signedTransactions,
+						pricing: prepareData.pricing,
+						affiliate_code: prepareData.affiliate_code,
+						collection_mint_address: prepareData.collection_mint_address,
+					};
+
+					const submitResponse = await axios.post(
+						`${baseUrl}${endpoint}/b2b-submit-transactions`,
+						submitRequestBody,
+						{
+							timeout: 240000, // 4 minutes for Irys + NFT
+							headers: {
+								'Authorization': `Bearer ${apiKey}`,
+								'Content-Type': 'application/json',
+							},
+							...getAxiosConfig(baseUrl),
+						},
+					);
+
+					if (!submitResponse.data || !submitResponse.data.success) {
+						throw new NodeOperationError(
+							this.getNode(),
+							`Transaction submission failed: ${submitResponse.data?.message || 'Unknown error'}`,
+						);
+					}
+
+					console.log('[n8n DOCS] ✅ Certification complete!');
+					responseData = submitResponse.data;
 				}
 
 				// ============================================

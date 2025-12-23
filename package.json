@@ -1,12 +1,11 @@
 {
   "name": "n8n-nodes-digicryptostore",
   "version": "1.2.11",
-  "description": "DigiCryptoStore & SolMemo - Secure document certification with blockchain, AI detection, and C2PA authenticity. Powered by CHECKHC.",
+  "description": "DigiCryptoStore - Secure document vault with blockchain certification. Powered by CHECKHC.",
   "keywords": [
     "n8n",
     "n8n-community-node-package",
     "digicryptostore",
-    "solmemo",
     "checkhc",
     "blockchain",
     "solana",
@@ -46,12 +45,10 @@
   "n8n": {
     "n8nNodesApiVersion": 1,
     "credentials": [
-      "dist/credentials/DigiCryptoStoreApi.credentials.js",
-      "dist/credentials/SolanaApi.credentials.js"
+      "dist/credentials/DigiCryptoStoreApi.credentials.js"
     ],
     "nodes": [
-      "dist/nodes/DigiCryptoStore/DigiCryptoStore.node.js",
-      "dist/nodes/SolMemo/SolMemo.node.js"
+      "dist/nodes/DigiCryptoStore/DigiCryptoStore.node.js"
     ]
   },
   "devDependencies": {

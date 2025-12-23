@@ -79,19 +79,86 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.2.0] - 2025-01-26
+
+### 🎉 NEW: SolMemo Node with C2PA Support
+
+**Major Addition**: New **SolMemo** node for blockchain timestamping with AI detection and C2PA authenticity.
+
+### Added
+- **NEW Node: SolMemo by CHECKHC**
+  - Blockchain timestamping on Solana
+  - AI authenticity detection (2 modes: Documentary/Artistic)
+  - C2PA content authenticity metadata
+  - Credit-based pricing (ultra-competitive)
+  
+- **4 Operations**:
+  1. **Create Certificate**: Upload + timestamp with optional AI
+  2. **Get Status**: Check certification status
+  3. **Create C2PA File**: Generate C2PA-embedded file (images only)
+  4. **Download C2PA**: Download authenticity file
+
+- **AI Detection Features**:
+  - Documentary mode: 2-level strict analysis (legal/proof photos)
+  - Artistic mode: 4-level tolerant analysis (art/NFT)
+  - Human vs AI probability scoring
+  - Confidence levels and certification reasons
+  
+- **C2PA Integration**:
+  - FREE for images (solo mode)
+  - Auto-bundled with AI analysis (30 credits)
+  - Blockchain hash embedded in manifest
+  - AI results in custom assertions
+  - 4-hour temporary storage (GDPR compliant)
+  - Industry-standard Content Authenticity Initiative
+
+### Pricing
+- **Simple cert**: 1 credit (~0.10€)
+- **AI + C2PA bundled**: 30 credits (~3€)
+- **C2PA solo**: FREE (images only)
+
+**Comparison**:
+- Truepic: $50/inspection
+- SolMemo: 0.33€/cert (Business plan)
+- **150x cheaper!**
+
+### B2C Plans
+- Starter: 9€/month = 100 credits
+- Premium: 25€/month = 400 credits
+
+### B2B Plans
+- Business: 99€/month = 300 certs (flat rate)
+- Business Pro: 299€/month = 1,500 certs (flat rate)
+- Enterprise: 999€/month = 10,000 certs (flat rate)
+
+### Technical Details
+- **API Endpoints**: 4 new SolMemo APIs
+- **File Support**: Images (JPEG, PNG, WebP)
+- **Max File Size**: 10MB
+- **Timeouts**: 30s standard, 60s with AI, 300s C2PA
+- **Security**: Bearer auth, HTTPS only, localhost dev support
+- **C2PA Expiration**: 4 hours (auto-cleanup)
+
+### Documentation
+- `SOLMEMO_README.md`: Complete SolMemo guide
+- C2PA workflow examples
+- AI detection use cases
+- Pricing comparison tables
+
+### Changed
+- **Package description**: Added "AI detection" and "C2PA authenticity"
+- **Keywords**: Added "solmemo", "c2pa", "content-authenticity", "ai-detection", "timestamp"
+- **Version**: 1.1.1 → 1.2.0
+
+---
+
 ## Future Releases
 
-### [1.1.0] - Planned
-- Batch processing optimization
-- Enhanced error reporting
+### [1.3.0] - Planned
+- Batch processing for SolMemo
 - Webhook notifications
+- Enhanced error reporting
 - Status dashboard
-
-### [1.2.0] - Planned
-- Multi-collection support
-- Advanced affiliate tracking
-- Custom watermark templates
-- API v2 integration
 
 ---
 

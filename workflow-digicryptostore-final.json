@@ -159,7 +159,7 @@
         "collectionMintAddress": "={{ $json.collectionMintAddress }}"
       },
       "id": "4",
-      "name": "🚀 B2B Certify Full",
+      "name": "🚀 NFT Documents store",
       "type": "n8n-nodes-digicryptostore.digiCryptoStore",
       "typeVersion": 1,
       "position": [960, 300],
@@ -203,7 +203,7 @@
       "main": [
         [
           {
-            "node": "🚀 B2B Certify Full",
+            "node": "🚀 NFT Documents store",
             "type": "main",
             "index": 0
           }
